@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Open Sans', sans-serif;
-  background: #48a3f9;
+  background: #4ccaf4;
 }
 
 .App {
@@ -12,8 +12,9 @@ body {
   grid-template-areas:
     'header header header header'
     '. search search .'
-    '. grid grid filter'
+    '. list list filter'
     'footer footer footer footer';
+  grid-column-gap: 15px;
 }
 
 .header {
@@ -21,9 +22,40 @@ body {
   font-weight: 600;
   font-size: 28px;
   margin: 15px;
+  color: white;
+  text-shadow: -1px -1px 0 #535353, 1px -1px 0 #535353, -1px 1px 0 #535353,
+    1px 1px 0 #535353;
+  height: 100px;
 }
 
 .searchbar {
   grid-area: search;
   width: 100%;
+}
+
+.oreo-list {
+  grid-area: list;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  grid-row-gap: 15px;
+  margin-top: 25px;
+}
+
+.oreo {
+  width: 175px;
+  height: auto;
+}
+
+.filter {
+  grid-area: filter;
+  width: 250px;
+  background: white;
+  height: 500px;
+  margin-top: 25px;
+}
+
+.footer {
+  grid-area: footer;
+  margin-top: 25px;
+  background: rgb(184, 184, 184);
 }

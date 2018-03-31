@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
+import Oreo from '../components/Oreo';
 
 class OreoList extends Component {
   render() {
-    return;
+    return (
+      <div className="oreo-list">
+        <Oreo />
+        <Oreo />
+        <Oreo />
+        <Oreo />
+        <Oreo />
+        <Oreo />
+        <Oreo />
+        <Oreo />
+      </div>
+    );
   }
 }
 
