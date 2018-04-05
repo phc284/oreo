@@ -9,7 +9,7 @@ class Filter extends Component {
       //   <select>asdfas</select>
       //   <select>asdfas</select>
       // </Card>
-      null
+      <div />
     );
   }
 }

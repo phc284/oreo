@@ -6,17 +6,36 @@ import { Button, TextField } from 'material-ui';
 import Dialog, {
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle
 } from 'material-ui/Dialog';
 
-import { openAddform, closeAddform } from '../actions';
-
-const renderField = ({ fieldLabel, fieldName }) => (
-  <TextField margin="dense" fullWidth name={fieldName} label={fieldLabel} />
-);
+import { openAddform, closeAddform, getFormError } from '../actions';
 
 class AddForm extends Component {
+  renderField = ({ fieldLabel, fieldName, change, error }) => {
+    if (fieldName === 'photo') {
+      return (
+        <TextField
+          margin="dense"
+          fullWidth
+          name={fieldName}
+          label={fieldLabel}
+        />
+      );
+    } else {
+      return (
+        <TextField
+          margin="dense"
+          required
+          fullWidth
+          name={fieldName}
+          label={fieldLabel}
+          onChange={change}
+          helperText={error}
+        />
+      );
+    }
+  };
   handleClose = () => {
     this.props.closeAddform();
   };
@@ -25,28 +44,43 @@ class AddForm extends Component {
     this.props.openAddform();
   };
 
+  //get errors for required fields
+  onChange = event => {
+    if (!event.target.value.length) {
+      this.props.getFormError(event.target.name);
+    }
+  };
+
   render() {
+    console.log(this.props.error.error);
     return (
       <div>
         <button onClick={this.handleOpen}>Add a cookie</button>
-        <Dialog open={this.props.addForm || false} onClose={this.handleClose}>
+        <Dialog
+          open={this.props.AddForm.addForm || false}
+          onClose={this.handleClose}
+        >
           <DialogTitle id="form-dialog-title">Submit An Oreo</DialogTitle>
           <DialogContent>
             <Field
-              name="inputName"
-              component={renderField}
+              name="name"
+              component={this.renderField}
               fieldName="name"
               fieldLabel="Name"
+              change={this.onChange}
+              errMsg={this.props.error.error}
             />
             <Field
-              name="inputDescription"
-              component={renderField}
+              name="description"
+              component={this.renderField}
               fieldName="description"
               fieldLabel="Description"
+              change={this.onChange}
+              errMsg={this.props.error.error}
             />
             <Field
-              name="inputPhoto"
-              component={renderField}
+              name="photo"
+              component={this.renderField}
               fieldName="photo"
               fieldLabel="Photo"
             />
@@ -63,13 +97,15 @@ class AddForm extends Component {
   }
 }
 
-const mapStateToProps = ({ AddForm }) => {
-  console.log(AddForm);
-  return AddForm;
+const mapStateToProps = ({ AddForm, error }) => {
+  return { AddForm, error };
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ openAddform, closeAddform }, dispatch);
+  return bindActionCreators(
+    { openAddform, closeAddform, getFormError },
+    dispatch
+  );
 };
 
 AddForm = connect(mapStateToProps, mapDispatchToProps)(AddForm);
