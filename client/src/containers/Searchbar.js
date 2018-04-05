@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
-import { InputGroup, InputGroupAddon, Input, Button } from 'reactstrap';
+import { Field, reduxForm } from 'redux-form';
+import { Button, TextField } from 'material-ui';
 
-class Searchbar extends Component {
-  render() {
-    return (
-      <InputGroup className="searchbar" size="lg">
-        <Input />
-        <InputGroupAddon addonType="append">
-          <Button>
-            <i class="material-icons">search</i>
-          </Button>
-        </InputGroupAddon>
-      </InputGroup>
-    );
-  }
-}
+const renderTextField = ({ labelText }) => (
+  <TextField fullWidth name="search" label={labelText} />
+);
 
-export default Searchbar;
+const SearchBar = () => {
+  const labelText = 'Search for your favorite Oreo...';
+  return (
+    <form className="searchbar">
+      <Field
+        name="inputSearch"
+        labelText={labelText}
+        component={renderTextField}
+        type="text"
+      />
+      <Button>
+        <i className="material-icons">search</i>
+      </Button>
+    </form>
+  );
+};
+
+export default reduxForm({ form: 'Searchbar' })(SearchBar);

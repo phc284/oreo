@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import Header from '../components/Header';
-import Searchbar from '../containers/Searchbar';
-import OreoList from '../containers/OreoList';
-import Filter from '../containers/Filter';
+import Header from './Header';
+import Searchbar from './Searchbar';
+import OreoList from './OreoList';
+import Filter from './Filter';
 import Footer from '../components/Footer';
 
 class App extends Component {

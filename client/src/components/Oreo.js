@@ -1,36 +1,38 @@
 import React from 'react';
-import {
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Button
-} from 'reactstrap';
+import Card, { CardContent, CardMedia, CardActions } from 'material-ui/Card';
+import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
+import { withStyles } from 'material-ui/styles';
+import oreoImg from '../oreo.jpg';
 
-const Oreo = () => {
+const styles = {
+  media: {
+    height: 200
+  }
+};
+
+const Oreo = props => {
+  const { classes } = props;
   return (
     <div className="oreo">
-      <Card>
-        <CardImg
-          top
-          width="100%"
-          src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180"
-          alt="Card image cap"
+      <Card className={classes.card}>
+        <CardMedia
+          className={classes.media}
+          image={oreoImg}
+          title="oreo name"
         />
-        <CardBody>
-          <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </CardText>
-          <Button>Button</Button>
-        </CardBody>
+        <CardContent>
+          <Typography variant="headline">Oreo Name</Typography>
+          <Typography component="p">This oreo is good</Typography>
+        </CardContent>
+        <CardActions>
+          <Button size="small" color="primary">
+            More Info
+          </Button>
+        </CardActions>
       </Card>
     </div>
   );
 };
 
-export default Oreo;
+export default withStyles(styles)(Oreo);
