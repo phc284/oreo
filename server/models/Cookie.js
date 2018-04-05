@@ -16,11 +16,13 @@ const cookieSchema = new mongoose.Schema({
     trim: true
   },
   photo: String,
+  slug: String,
   author: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
     required: 'You must supply an author'
-  }
+  },
+  tags: [String]
 });
 
 module.exports = mongoose.model('Cookie', reviewSchema);
