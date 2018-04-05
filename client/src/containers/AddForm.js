@@ -12,20 +12,8 @@ import Dialog, {
 
 import { openAddform, closeAddform } from '../actions';
 
-const renderNameField = () => (
-  <TextField margin="dense" fullWidth name="name" label="Name" />
-);
-const renderDescriptionField = () => (
-  <TextField
-    margin="dense"
-    fullWidth
-    multiline
-    name="description"
-    label="Description"
-  />
-);
-const renderPhotoField = () => (
-  <TextField margin="dense" fullWidth name="photo" label="Photo Url" />
+const renderField = ({ fieldLabel, fieldName }) => (
+  <TextField margin="dense" fullWidth name={fieldName} label={fieldLabel} />
 );
 
 class AddForm extends Component {
@@ -44,16 +32,23 @@ class AddForm extends Component {
         <Dialog open={this.props.addForm || false} onClose={this.handleClose}>
           <DialogTitle id="form-dialog-title">Submit An Oreo</DialogTitle>
           <DialogContent>
-            <Field name="inputSearch" component={renderNameField} type="text" />
             <Field
-              name="inputSearch"
-              component={renderDescriptionField}
-              type="text"
+              name="inputName"
+              component={renderField}
+              fieldName="name"
+              fieldLabel="Name"
             />
             <Field
-              name="inputSearch"
-              component={renderPhotoField}
-              type="text"
+              name="inputDescription"
+              component={renderField}
+              fieldName="description"
+              fieldLabel="Description"
+            />
+            <Field
+              name="inputPhoto"
+              component={renderField}
+              fieldName="photo"
+              fieldLabel="Photo"
             />
           </DialogContent>
           <DialogActions>
