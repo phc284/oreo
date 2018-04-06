@@ -11,8 +11,25 @@ import Dialog, {
 
 import { openAddform, closeAddform, getFormError } from '../actions';
 
+const validate = values => {
+  const errors = {};
+  const requiredFields = ['name', 'description'];
+  requiredFields.forEach(field => {
+    if (!values[field]) {
+      errors[field] = 'Required';
+    }
+  });
+  return errors;
+};
+
 class AddForm extends Component {
-  renderField = ({ fieldLabel, fieldName, change, error }) => {
+  renderField = ({
+    fieldLabel,
+    fieldName,
+    input,
+    meta: { touched, error },
+    ...custom
+  }) => {
     if (fieldName === 'photo') {
       return (
         <TextField
@@ -20,6 +37,8 @@ class AddForm extends Component {
           fullWidth
           name={fieldName}
           label={fieldLabel}
+          helperText={touched && error}
+          {...input}
         />
       );
     } else {
@@ -30,8 +49,8 @@ class AddForm extends Component {
           fullWidth
           name={fieldName}
           label={fieldLabel}
-          onChange={change}
-          helperText={error}
+          helperText={touched && error}
+          {...input}
         />
       );
     }
@@ -44,61 +63,58 @@ class AddForm extends Component {
     this.props.openAddform();
   };
 
-  //get errors for required fields
-  onChange = event => {
-    if (!event.target.value.length) {
-      this.props.getFormError(event.target.name);
-    }
+  onSubmit = formValues => {
+    console.log('submit', formValues);
   };
 
   render() {
-    console.log(this.props.error.error);
+    const { handleSubmit } = this.props;
     return (
       <div>
         <button onClick={this.handleOpen}>Add a cookie</button>
         <Dialog
-          open={this.props.AddForm.addForm || false}
+          open={this.props.addForm.addForm || false}
           onClose={this.handleClose}
         >
           <DialogTitle id="form-dialog-title">Submit An Oreo</DialogTitle>
-          <DialogContent>
-            <Field
-              name="name"
-              component={this.renderField}
-              fieldName="name"
-              fieldLabel="Name"
-              change={this.onChange}
-              errMsg={this.props.error.error}
-            />
-            <Field
-              name="description"
-              component={this.renderField}
-              fieldName="description"
-              fieldLabel="Description"
-              change={this.onChange}
-              errMsg={this.props.error.error}
-            />
-            <Field
-              name="photo"
-              component={this.renderField}
-              fieldName="photo"
-              fieldLabel="Photo"
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="secondary">
-              Close
-            </Button>
-            <Button color="primary">Submit</Button>
-          </DialogActions>
+          <form onSubmit={handleSubmit(this.onSubmit)}>
+            <DialogContent>
+              <Field
+                name="name"
+                component={this.renderField}
+                fieldName="name"
+                fieldLabel="Name"
+              />
+              <Field
+                name="description"
+                component={this.renderField}
+                fieldName="description"
+                fieldLabel="Description"
+              />
+              <Field
+                name="photo"
+                component={this.renderField}
+                fieldName="photo"
+                fieldLabel="Photo"
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose} color="secondary">
+                Close
+              </Button>
+              <Button type="submit" color="primary">
+                Submit
+              </Button>
+            </DialogActions>
+          </form>
         </Dialog>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ AddForm, error }) => {
-  return { AddForm, error };
+const mapStateToProps = ({ addForm, error }) => {
+  return { addForm, error };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -110,4 +126,7 @@ const mapDispatchToProps = dispatch => {
 
 AddForm = connect(mapStateToProps, mapDispatchToProps)(AddForm);
 
-export default reduxForm({ form: 'AddForm' })(AddForm);
+export default reduxForm({
+  form: 'OreoAddForm',
+  validate
+})(AddForm);
