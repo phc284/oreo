@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Button, TextField } from 'material-ui';
+import { Button } from 'material-ui';
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -10,7 +10,9 @@ import Dialog, {
 } from 'material-ui/Dialog';
 
 import { openAddform, closeAddform, getFormError } from '../actions';
+import AddFormInput from '../components/AddFormInput';
 
+//validate input fields
 const validate = values => {
   const errors = {};
   const requiredFields = ['name', 'description'];
@@ -23,38 +25,6 @@ const validate = values => {
 };
 
 class AddForm extends Component {
-  renderField = ({
-    fieldLabel,
-    fieldName,
-    input,
-    meta: { touched, error },
-    ...custom
-  }) => {
-    if (fieldName === 'photo') {
-      return (
-        <TextField
-          margin="dense"
-          fullWidth
-          name={fieldName}
-          label={fieldLabel}
-          helperText={touched && error}
-          {...input}
-        />
-      );
-    } else {
-      return (
-        <TextField
-          margin="dense"
-          required
-          fullWidth
-          name={fieldName}
-          label={fieldLabel}
-          helperText={touched && error}
-          {...input}
-        />
-      );
-    }
-  };
   handleClose = () => {
     this.props.closeAddform();
   };
@@ -63,6 +33,7 @@ class AddForm extends Component {
     this.props.openAddform();
   };
 
+  //go back and connect to server later
   onSubmit = formValues => {
     console.log('submit', formValues);
   };
@@ -81,19 +52,19 @@ class AddForm extends Component {
             <DialogContent>
               <Field
                 name="name"
-                component={this.renderField}
+                component={AddFormInput}
                 fieldName="name"
                 fieldLabel="Name"
               />
               <Field
                 name="description"
-                component={this.renderField}
+                component={AddFormInput}
                 fieldName="description"
                 fieldLabel="Description"
               />
               <Field
                 name="photo"
-                component={this.renderField}
+                component={AddFormInput}
                 fieldName="photo"
                 fieldLabel="Photo"
               />
@@ -124,8 +95,10 @@ const mapDispatchToProps = dispatch => {
   );
 };
 
+//connect redux
 AddForm = connect(mapStateToProps, mapDispatchToProps)(AddForm);
 
+//connect redux-form
 export default reduxForm({
   form: 'OreoAddForm',
   validate
