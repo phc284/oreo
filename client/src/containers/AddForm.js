@@ -17,7 +17,7 @@ const validate = values => {
   const errors = {};
   const requiredFields = ['name', 'description'];
   requiredFields.forEach(field => {
-    if (!values[field]) {
+    if (!values[field] || values[field].length === 0) {
       errors[field] = 'Required';
     }
   });
@@ -27,6 +27,7 @@ const validate = values => {
 class AddForm extends Component {
   handleClose = () => {
     this.props.closeAddform();
+    this.props.reset();
   };
 
   handleOpen = () => {
@@ -36,13 +37,16 @@ class AddForm extends Component {
   //go back and connect to server later
   onSubmit = formValues => {
     console.log('submit', formValues);
+    this.props.reset();
   };
 
   render() {
     const { handleSubmit } = this.props;
     return (
       <div>
-        <button onClick={this.handleOpen}>Add a cookie</button>
+        <Button variant="raised" onClick={this.handleOpen}>
+          Add a cookie
+        </Button>
         <Dialog
           open={this.props.addForm.addForm || false}
           onClose={this.handleClose}
@@ -101,5 +105,8 @@ AddForm = connect(mapStateToProps, mapDispatchToProps)(AddForm);
 //connect redux-form
 export default reduxForm({
   form: 'OreoAddForm',
-  validate
+  validate,
+  shouldError: ({ props }) => {
+    return !props.anyTouched;
+  }
 })(AddForm);

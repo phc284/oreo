@@ -1,18 +1,20 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Button, TextField } from 'material-ui';
+import { withStyles } from 'material-ui/styles';
 
 const renderTextField = ({ labelText, input }) => (
   <TextField fullWidth name="search" label={labelText} {...input} />
 );
 
-const SearchBar = props => {
+let SearchBar = props => {
   const labelText = 'Search for your favorite Oreo...';
+  const { classes, handleSubmit } = props;
   const onSubmit = values => {
     console.log('searchbar', values);
   };
   return (
-    <form onSubmit={props.handleSubmit(onSubmit)} className="searchbar">
+    <form onSubmit={handleSubmit(onSubmit)} className="searchbar">
       <Field
         name="inputSearch"
         labelText={labelText}
