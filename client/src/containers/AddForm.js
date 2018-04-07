@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button } from 'material-ui';
@@ -17,7 +18,7 @@ const validate = values => {
   const errors = {};
   const requiredFields = ['name', 'description'];
   requiredFields.forEach(field => {
-    if (!values[field] || values[field].length === 0) {
+    if (!values[field]) {
       errors[field] = 'Required';
     }
   });
@@ -37,6 +38,9 @@ class AddForm extends Component {
   //go back and connect to server later
   onSubmit = formValues => {
     console.log('submit', formValues);
+    axios.post('/api/oreo', formValues).then(data => {
+      console.log('hellloo');
+    });
     this.props.reset();
   };
 
@@ -107,6 +111,6 @@ export default reduxForm({
   form: 'OreoAddForm',
   validate,
   shouldError: ({ props }) => {
-    return !props.anyTouched;
+    return props.invalid;
   }
 })(AddForm);

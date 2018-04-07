@@ -22,4 +22,4 @@ const userSchema = new mongoose.Schema({
   favorites: [{ type: mongoose.Schema.ObjectId, ref: 'Cookie' }]
 });
 
-module.exports = mongoose.model('User', reviewSchema);
+module.exports = mongoose.model('User', userSchema);

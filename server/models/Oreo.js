@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const cookieSchema = new mongoose.Schema({
+const oreoSchema = new mongoose.Schema({
   created: {
     type: Date,
     default: Date.now()
@@ -17,12 +17,12 @@ const cookieSchema = new mongoose.Schema({
   },
   photo: String,
   slug: String,
-  author: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'User',
-    required: 'You must supply an author'
-  },
+  // author: {
+  //   type: mongoose.Schema.ObjectId,
+  //   ref: 'User',
+  //   required: 'You must supply an author'
+  // },
   tags: [String]
 });
 
-module.exports = mongoose.model('Cookie', reviewSchema);
+module.exports = mongoose.model('Oreo', oreoSchema);
