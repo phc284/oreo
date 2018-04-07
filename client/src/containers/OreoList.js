@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import Oreo from '../components/Oreo';
 
 class OreoList extends Component {
@@ -18,4 +20,8 @@ class OreoList extends Component {
   }
 }
 
-export default OreoList;
+const mapStateToProps = state => {
+  return state;
+};
+
+export default connect(mapStateToProps)(OreoList);

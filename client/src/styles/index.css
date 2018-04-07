@@ -19,12 +19,7 @@ body {
 
 .header {
   grid-area: header;
-  font-weight: 600;
-  font-size: 28px;
   margin: 15px;
-  color: white;
-  text-shadow: -1px -1px 0 #535353, 1px -1px 0 #535353, -1px 1px 0 #535353,
-    1px 1px 0 #535353;
   height: 100px;
 }
 
