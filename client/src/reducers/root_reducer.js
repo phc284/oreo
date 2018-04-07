@@ -3,6 +3,7 @@ import { reducer as formReducer } from 'redux-form';
 
 import AddFormReducer from './addform_reducer';
 import ErrorReducer from './error_reducer';
+import OreosReducer from './oreos_reducer';
 
 const rootReducer = combineReducers({
   // ...your other reducers here
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   // for custom keys look up the docs for 'getFormState'
   addForm: AddFormReducer,
   error: ErrorReducer,
+  oreos: OreosReducer,
   form: formReducer
 });
 

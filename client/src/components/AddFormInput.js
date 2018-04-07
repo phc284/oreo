@@ -6,12 +6,19 @@ const AddFormInput = ({
   fieldName,
   input,
   meta: { touched, error },
+  errorMsg,
   ...custom
 }) => {
   //create red error color
   let hasError = false;
-  if (touched === true && error !== undefined) {
+  let multi = false;
+  let rows = 1;
+  if ((touched && error !== undefined) || errorMsg) {
     hasError = true;
+  }
+  if (fieldName === 'description') {
+    multi = true;
+    rows = 2;
   }
 
   if (fieldName === 'photo') {
@@ -31,6 +38,8 @@ const AddFormInput = ({
       <TextField
         margin="dense"
         fullWidth
+        multiline={multi}
+        rows={rows}
         name={fieldName}
         label={fieldLabel}
         helperText={touched && error}

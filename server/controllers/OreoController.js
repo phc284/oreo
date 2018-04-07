@@ -9,13 +9,18 @@ const DOMPurify = createDOMPurify(window);
 
 exports.createOreo = async (req, res) => {
   console.log('create oreo', req.body);
-  //santize inputs before putting in db
-  for (const key in req.body) {
-    let clean = DOMPurify.sanitize(req.body.key);
-    console.log('clean', clean);
-    req.body[key] = clean;
-  }
+
+  //create new object with only name, description, and key
+
   const oreo = await new Oreo(req.body).save();
 
   res.send(oreo);
+};
+
+exports.getOreos = async (req, res) => {
+  console.log('get all oreos');
+
+  //get all the oreos from the database
+  const oreos = await Oreo.find();
+  res.send(oreos);
 };

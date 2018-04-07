@@ -9,9 +9,13 @@ import Dialog, {
   DialogContent,
   DialogTitle
 } from 'material-ui/Dialog';
+import { FormGroup } from 'material-ui/Form';
+
+import Check from '../components/Check';
 
 import { openAddform, closeAddform, getFormError } from '../actions';
 import AddFormInput from '../components/AddFormInput';
+import { tags } from '../helpers/data';
 
 //validate input fields
 const validate = values => {
@@ -36,11 +40,9 @@ class AddForm extends Component {
   };
 
   //go back and connect to server later
-  onSubmit = formValues => {
-    console.log('submit', formValues);
-    axios.post('/api/oreo', formValues).then(data => {
-      console.log(data);
-    });
+  onSubmit = async formValues => {
+    console.log('FORMVALUES', formValues);
+    await axios.post('/api/add', formValues);
     this.props.reset();
   };
 
@@ -63,6 +65,7 @@ class AddForm extends Component {
                 component={AddFormInput}
                 fieldName="name"
                 fieldLabel="Name"
+                errorMsg={this.props.error.flashError}
               />
               <Field
                 name="description"
@@ -76,6 +79,19 @@ class AddForm extends Component {
                 fieldName="photo"
                 fieldLabel="Photo"
               />
+              <FormGroup row>
+                {tags.map((tag, index) => {
+                  return (
+                    <Field
+                      component={Check}
+                      name={tag}
+                      tag={tag}
+                      key={index}
+                      value={tag}
+                    />
+                  );
+                })}
+              </FormGroup>
             </DialogContent>
             <DialogActions>
               <Button onClick={this.handleClose} color="secondary">
@@ -92,8 +108,8 @@ class AddForm extends Component {
   }
 }
 
-const mapStateToProps = ({ addForm, error }) => {
-  return { addForm, error };
+const mapStateToProps = state => {
+  return { addForm: state.addForm, error: state.error };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -111,6 +127,6 @@ export default reduxForm({
   form: 'OreoAddForm',
   validate,
   shouldError: ({ props }) => {
-    return props.invalid;
+    return !props.touched;
   }
 })(AddForm);

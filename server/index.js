@@ -1,8 +1,4 @@
-const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const flash = require('connect-flash');
-const { flashValidationErrors } = require('./handlers/error_handlers');
 
 // import environmental variables from our variables.env file
 require('dotenv').config({ path: 'variables.env' });
@@ -17,21 +13,11 @@ mongoose.connection.on('error', err => {
 
 require('./models/Oreo');
 
-const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-//use flash messages
-app.use(flash());
-
-const routes = require('./routes/routes');
-app.use('/api', routes);
-
-app.use(flashValidationErrors);
-
 // Start our app!
-// const app = require('./app');
+const app = require('./app');
 app.set('port', process.env.PORT || 3000);
 const server = app.listen(app.get('port'), () => {
   console.log(`Expresss running → PORT ${server.address().port}`);
 });
+
+module.exports = app;

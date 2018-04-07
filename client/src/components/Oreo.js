@@ -8,22 +8,26 @@ import oreoImg from '../oreo.jpg';
 const styles = {
   media: {
     height: 200
+  },
+  card: {
+    maxWidth: 200
   }
 };
 
-const Oreo = props => {
-  const { classes } = props;
+const Oreo = ({ classes, name, desc, photo }) => {
   return (
     <div className="oreo">
       <Card className={classes.card}>
         <CardMedia
           className={classes.media}
-          image={oreoImg}
-          title="oreo name"
+          image={
+            photo ? (photo.includes('jpg', 'png') ? photo : oreoImg) : oreoImg
+          }
+          title={name}
         />
         <CardContent>
-          <Typography variant="headline">Oreo Name</Typography>
-          <Typography component="p">This oreo is good</Typography>
+          <Typography variant="headline">{name}</Typography>
+          <Typography component="p">{desc}</Typography>
         </CardContent>
         <CardActions>
           <Button size="small" color="primary">
