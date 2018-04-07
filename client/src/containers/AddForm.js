@@ -39,7 +39,7 @@ class AddForm extends Component {
   onSubmit = formValues => {
     console.log('submit', formValues);
     axios.post('/api/oreo', formValues).then(data => {
-      console.log('hellloo');
+      console.log(data);
     });
     this.props.reset();
   };
