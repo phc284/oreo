@@ -43,7 +43,7 @@ class AddForm extends Component {
   onSubmit = async formValues => {
     console.log('FORMVALUES', formValues);
     await axios.post('/api/add', formValues);
-    this.props.reset();
+    this.handleClose();
   };
 
   render() {
