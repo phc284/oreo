@@ -12,7 +12,6 @@ const styles = {
 };
 
 const Header = ({ classes }) => {
-  console.log(classes);
   return (
     <div className="header">
       <Typography className={classes.Typography} variant="title">

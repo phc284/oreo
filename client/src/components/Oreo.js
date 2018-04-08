@@ -16,7 +16,6 @@ const styles = {
 //remove ternary for tags once all cards have tags
 
 const Oreo = ({ classes, name, desc, photo, tags }) => {
-  console.log(tags);
   return (
     <div className="oreo">
       <Card className={classes.card}>
@@ -33,8 +32,9 @@ const Oreo = ({ classes, name, desc, photo, tags }) => {
             {desc}
           </Typography>
           {tags
-            ? tags.map(tag => (
+            ? tags.map((tag, i) => (
                 <Chip
+                  key={i}
                   label={tag}
                   style={{ fontSize: 10, fontWeight: 'bold', margin: 3 }}
                 />

@@ -12,7 +12,6 @@ class OreoList extends Component {
 
   render() {
     const { oreos } = this.props.oreos;
-    console.log(oreos);
     return (
       <div className="oreo-list">
         {oreos
