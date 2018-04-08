@@ -8,7 +8,7 @@ const window = new JSDOM('').window;
 const DOMPurify = createDOMPurify(window);
 
 exports.createOreo = async (req, res) => {
-  console.log('/add', req.body);
+  console.log('POST /add', req.body);
 
   const { name, description, photo, ...bodyTags } = req.body;
   const tags = Object.keys(bodyTags);
@@ -26,9 +26,9 @@ exports.createOreo = async (req, res) => {
 };
 
 exports.getOreos = async (req, res) => {
-  console.log('/oreos');
+  console.log('GET /oreos');
 
   //get all the oreos from the database
-  const oreos = await Oreo.find();
+  const oreos = await Oreo.find().sort({ created: 'desc' });
   res.send(oreos);
 };

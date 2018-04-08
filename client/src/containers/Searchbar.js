@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import { Button, TextField } from 'material-ui';
 
 const renderTextField = ({ labelText, input }) => (
-  <TextField fullWidth name="search" placeholder={labelText} {...input} />
+  <TextField name="search" placeholder={labelText} {...input} />
 );
 
 const SearchBar = props => {

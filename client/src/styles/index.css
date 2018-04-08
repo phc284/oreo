@@ -27,13 +27,14 @@ body {
   grid-area: search;
   display: grid;
   grid-template-columns: 1fr auto;
+  width: 100%;
 }
 
 .oreo-list {
   grid-area: list;
   display: grid;
   justify-items: center;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-row-gap: 15px;
   margin: 25px 0 0 15px;
 }
@@ -65,4 +66,29 @@ body {
   grid-area: footer;
   margin-top: 25px;
   background: rgb(184, 184, 184);
+}
+
+@media (max-width: 768px) {
+  .App {
+    grid-template-areas:
+      'header header '
+      'filter filter'
+      'search search '
+      'list list'
+      'footer footer ';
+  }
+
+  .filter {
+    height: 250px;
+    width: 75%;
+  }
+
+  .searchbar {
+    width: 90%;
+    justify-self: center;
+  }
+
+  .header button {
+    display: none;
+  }
 }
