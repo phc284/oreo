@@ -13,7 +13,7 @@ import { FormGroup } from 'material-ui/Form';
 
 import Check from '../components/Check';
 
-import { openAddform, closeAddform, getFormError } from '../actions';
+import { openAddform, closeAddform, getFormError, getOreos } from '../actions';
 import AddFormInput from '../components/AddFormInput';
 import { tags } from '../helpers/data';
 
@@ -44,6 +44,7 @@ class AddForm extends Component {
     console.log('FORMVALUES', formValues);
     await axios.post('/api/add', formValues);
     this.handleClose();
+    this.props.getOreos();
   };
 
   render() {
@@ -114,7 +115,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
-    { openAddform, closeAddform, getFormError },
+    { openAddform, closeAddform, getFormError, getOreos },
     dispatch
   );
 };

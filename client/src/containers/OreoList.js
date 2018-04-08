@@ -31,7 +31,7 @@ class OreoList extends Component {
   }
 }
 
-const mapStateToProps = ({ oreos: oreos }) => {
+const mapStateToProps = ({ oreos }) => {
   return { oreos };
 };
 const mapDispatchToProps = dispatch => {

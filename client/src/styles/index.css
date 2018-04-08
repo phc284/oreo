@@ -10,11 +10,11 @@ body {
 .App {
   display: grid;
   grid-template-areas:
-    'header header header header'
-    '. search search .'
-    '. list list filter'
-    'footer footer footer footer';
-  grid-column-gap: 15px;
+    'header header header header header'
+    '. search search search .'
+    'list list list list filter'
+    'footer footer footer footer footer';
+  grid-column-gap: 12px;
 }
 
 .header {
@@ -49,6 +49,8 @@ body {
   background: white;
   height: 500px;
   margin-top: 25px;
+  justify-self: center;
+  max-width: 300px;
 }
 
 .footer {
