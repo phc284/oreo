@@ -10,7 +10,7 @@ const styles = {
     height: 200
   },
   card: {
-    maxWidth: 200
+    height: 375
   }
 };
 
