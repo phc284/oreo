@@ -50,6 +50,15 @@ body {
   margin-top: 25px;
   justify-self: center;
   max-width: 300px;
+  text-align: center;
+}
+
+.filter h2 {
+  margin-top: 15%;
+  font-weight: 600;
+}
+.filter fieldset {
+  margin-top: 15px;
 }
 
 .footer {

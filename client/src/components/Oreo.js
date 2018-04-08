@@ -13,6 +13,8 @@ const styles = {
   }
 };
 
+//remove ternary for tags once all cards have tags
+
 const Oreo = ({ classes, name, desc, photo, tags }) => {
   console.log(tags);
   return (
