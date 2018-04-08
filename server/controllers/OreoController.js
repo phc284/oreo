@@ -13,9 +13,7 @@ exports.createOreo = async (req, res) => {
   const { name, description, photo, ...bodyTags } = req.body;
   const tags = Object.keys(bodyTags);
 
-  //TODO
-  //create new object with only name, description, and key
-  let newBody = {
+  const newBody = {
     name,
     description,
     photo,

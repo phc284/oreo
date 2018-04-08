@@ -12,6 +12,7 @@ class OreoList extends Component {
 
   render() {
     const { oreos } = this.props.oreos;
+    console.log(oreos);
     return (
       <div className="oreo-list">
         {oreos
@@ -22,6 +23,7 @@ class OreoList extends Component {
                   name={oreo.name}
                   desc={oreo.description}
                   photo={oreo.photo}
+                  tags={oreo.tags}
                 />
               );
             })

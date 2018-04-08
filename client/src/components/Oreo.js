@@ -3,18 +3,18 @@ import Card, { CardContent, CardMedia, CardActions } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
+import Chip from 'material-ui/Chip';
+
 import oreoImg from '../oreo.jpg';
 
 const styles = {
   media: {
     height: 200
-  },
-  card: {
-    height: 375
   }
 };
 
-const Oreo = ({ classes, name, desc, photo }) => {
+const Oreo = ({ classes, name, desc, photo, tags }) => {
+  console.log(tags);
   return (
     <div className="oreo">
       <Card className={classes.card}>
@@ -27,7 +27,17 @@ const Oreo = ({ classes, name, desc, photo }) => {
         />
         <CardContent>
           <Typography variant="headline">{name}</Typography>
-          <Typography component="p">{desc}</Typography>
+          <Typography component="p" style={{ marginBottom: 10 }}>
+            {desc}
+          </Typography>
+          {tags
+            ? tags.map(tag => (
+                <Chip
+                  label={tag}
+                  style={{ fontSize: 10, fontWeight: 'bold', margin: 3 }}
+                />
+              ))
+            : null}
         </CardContent>
         <CardActions>
           <Button size="small" color="primary">
