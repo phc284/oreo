@@ -9,7 +9,13 @@ const DOMPurify = createDOMPurify(window);
 
 const formatBody = body => {
   const { name, description, photo, ...bodyTags } = body;
-  const tags = Object.keys(bodyTags);
+  let tags = [];
+  //if tag is removed from client, remove from list
+  for (let key in bodyTags) {
+    if (bodyTags[key] === true) {
+      tags = [...tags, [key]];
+    }
+  }
 
   const newBody = {
     name,
