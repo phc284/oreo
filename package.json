@@ -27,11 +27,14 @@
   },
   "cacheDirectories": ["node_modules", "client/node_modules"],
   "scripts": {
-    "start":
-      "concurrently \"cd server && nodemon index.js\" \"cd client && npm start\"",
-    "build": "cd client && npm install && npm install",
-    "heroku-postbuild": "cd client && npm install && npm install",
-    "setup": "npm install && cd client && npm install"
+    "dev":
+      "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "client": "cd client && npm start",
+    "start": "cd server && nodemon index.js",
+    "server": "cd server && nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild":
+      "cd client && npm install --only=dev && npm install && npm run build"
   },
   "devDependencies": {}
 }
