@@ -2,12 +2,12 @@ import React from 'react';
 import { FormControlLabel } from 'material-ui/Form';
 import Checkbox from 'material-ui/Checkbox';
 
-const Check = ({ tag, input, tagsVal }) => {
+const Check = ({ tag, input }) => {
   return (
     <FormControlLabel
       control={
         <Checkbox
-          checked={tagsVal ? true : false}
+          checked={input.value ? true : false}
           onChange={input.onChange}
           value={tag}
         />

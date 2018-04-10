@@ -52,7 +52,11 @@ class AddForm extends Component {
           onClose={this.handleClose}
         >
           <DialogTitle id="form-dialog-title">Submit An Oreo</DialogTitle>
-          <Form handleSubmit={handleSubmit} onSubmitHandle={this.onSubmit} />
+          <Form
+            handleSubmit={handleSubmit}
+            onSubmitHandle={this.onSubmit}
+            handleClose={this.handleClose}
+          />
         </Dialog>
       </div>
     );

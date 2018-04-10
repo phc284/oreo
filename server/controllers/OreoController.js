@@ -7,10 +7,8 @@ const { JSDOM } = require('jsdom');
 const window = new JSDOM('').window;
 const DOMPurify = createDOMPurify(window);
 
-exports.createOreo = async (req, res) => {
-  console.log('POST /add', req.body);
-
-  const { name, description, photo, ...bodyTags } = req.body;
+const formatBody = body => {
+  const { name, description, photo, ...bodyTags } = body;
   const tags = Object.keys(bodyTags);
 
   const newBody = {
@@ -19,8 +17,17 @@ exports.createOreo = async (req, res) => {
     photo,
     tags
   };
+  return newBody;
+};
+
+exports.createOreo = async (req, res) => {
+  console.log('POST /add', req.body);
+
+  const newBody = formatBody(req.body);
   //create an array with the list of tags selected to add to model
   const oreo = await new Oreo(newBody).save();
+
+  console.log(oreo);
 
   res.send(oreo);
 };
@@ -42,7 +49,10 @@ exports.editOreo = async (req, res) => {
 exports.updateOreo = async (req, res) => {
   console.log('PUT /add/:id');
   console.log(req.body);
-  const oreo = await Oreo.findOneAndUpdate({ _id: req.params.id }, req.body, {
+
+  const newBody = formatBody(req.body);
+
+  const oreo = await Oreo.findOneAndUpdate({ _id: req.params.id }, newBody, {
     new: true, //return new store instead of the old one
     runValidators: true
   }).exec();

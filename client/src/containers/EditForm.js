@@ -21,28 +21,39 @@ const validate = values => {
   return errors;
 };
 
+const initializeTags = tags => {
+  return tags.reduce((acc, ele) => {
+    return { ...acc, [ele]: true };
+  }, {});
+};
+
 class EditForm extends Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
+    const { hydrate } = this.props;
+    console.log(hydrate);
     //if not first time edit button pressed (there are prev props)
     if (prevProps.hydrate.oreo) {
-      if (prevProps.hydrate.oreo.name !== this.props.hydrate.oreo.name) {
+      if (prevProps.hydrate.oreo.name !== hydrate.oreo.name) {
         this.props.initialize({
-          name: this.props.hydrate.oreo.name,
-          description: this.props.hydrate.oreo.name
+          name: hydrate.oreo.name,
+          description: hydrate.oreo.name,
+          ...initializeTags(hydrate.oreo.tags)
         });
       }
     } else if (this.props.hydrate.oreo) {
       //else if its first time
       this.props.initialize({
-        name: this.props.hydrate.oreo.name,
-        description: this.props.hydrate.oreo.name
+        name: hydrate.oreo.name,
+        description: hydrate.oreo.name,
+        ...initializeTags(hydrate.oreo.tags)
       });
     }
   }
 
   handleClose = () => {
     this.props.closeEditform();
-    this.props.reset();
+    this.props.destroy();
+    // this.props.reset();
   };
 
   //go back and connect to server later
@@ -65,7 +76,11 @@ class EditForm extends Component {
           onClose={this.handleClose}
         >
           <DialogTitle id="form-dialog-title">Submit An Oreo</DialogTitle>
-          <Form handleSubmit={handleSubmit} onSubmitHandle={this.onSubmit} />
+          <Form
+            handleSubmit={handleSubmit}
+            onSubmitHandle={this.onSubmit}
+            handleClose={this.handleClose}
+          />
         </Dialog>
       </div>
     );
