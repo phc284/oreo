@@ -52,14 +52,13 @@ class EditForm extends Component {
 
   handleClose = () => {
     this.props.closeEditform();
-    this.props.destroy();
-    // this.props.reset();
   };
 
   //go back and connect to server later
   onSubmit = async formValues => {
     const id = this.props.hydrate.oreo._id;
 
+    //make a success indicator
     await axios.put(`/api/add/${id}`, formValues).then(() => {
       console.log('success');
     });
