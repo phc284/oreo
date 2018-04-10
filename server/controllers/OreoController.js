@@ -34,11 +34,19 @@ exports.getOreos = async (req, res) => {
 };
 
 exports.editOreo = async (req, res) => {
-  console.log('GET /oreos/:id');
-  console.log(req.params);
-
-  //get all the oreos from the database
+  console.log('GET /add/:id');
   const oreo = await Oreo.findOne({ _id: req.params.id });
-  console.log('OREO', oreo);
+  res.send(oreo);
+};
+
+exports.updateOreo = async (req, res) => {
+  console.log('PUT /add/:id');
+  console.log(req.body);
+  const oreo = await Oreo.findOneAndUpdate({ _id: req.params.id }, req.body, {
+    new: true, //return new store instead of the old one
+    runValidators: true
+  }).exec();
+
+  console.log(oreo);
   res.send(oreo);
 };

@@ -7,7 +7,7 @@ import Dialog, { DialogTitle } from 'material-ui/Dialog';
 
 import Form from '../components/Form';
 
-import { openEditform, closeEditform } from '../actions';
+import { openEditform, closeEditform, getOreos } from '../actions';
 
 //validate input fields
 const validate = values => {
@@ -23,20 +23,35 @@ const validate = values => {
 
 class EditForm extends Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
-    // console.log('DIDUPDATE');
+    //if not first time edit button pressed (there are prev props)
+    if (prevProps.hydrate.oreo) {
+      if (prevProps.hydrate.oreo.name !== this.props.hydrate.oreo.name) {
+        this.props.initialize({
+          name: this.props.hydrate.oreo.name,
+          description: this.props.hydrate.oreo.name
+        });
+      }
+    } else if (this.props.hydrate.oreo) {
+      //else if its first time
+      this.props.initialize({
+        name: this.props.hydrate.oreo.name,
+        description: this.props.hydrate.oreo.name
+      });
+    }
   }
+
   handleClose = () => {
     this.props.closeEditform();
     this.props.reset();
   };
 
-  handleOpen = () => {
-    this.props.openEditform();
-  };
-
   //go back and connect to server later
   onSubmit = async formValues => {
-    await axios.post(`/api/add/${''}`, formValues);
+    const id = this.props.hydrate.oreo._id;
+
+    await axios.put(`/api/add/${id}`, formValues).then(() => {
+      console.log('success');
+    });
     this.handleClose();
     this.props.getOreos();
   };
@@ -58,31 +73,34 @@ class EditForm extends Component {
 }
 
 const mapStateToProps = state => {
-  const { oreo } = state.hydrate;
-  let initial = {
-    name: 'adfads',
-    description: 'sdfsdf'
-  };
-  console.log(initial);
+  // const { oreo } = state.hydrate;
+  // if (oreo) {
+  //   var initialValues = {
+  //     name: oreo.name,
+  //     description: oreo.description
+  //   };
+  // }
   return {
     editForm: state.editForm,
-    hydrate: state.hydrate,
-    initialValues: initial
+    hydrate: state.hydrate
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ openEditform, closeEditform }, dispatch);
+  return bindActionCreators(
+    { openEditform, closeEditform, getOreos },
+    dispatch
+  );
 };
 
 //connect redux
-EditForm = connect(mapStateToProps, mapDispatchToProps)(EditForm);
-
-//connect redux-form
-export default reduxForm({
+EditForm = reduxForm({
   form: 'OreoEditForm',
   validate,
   shouldError: ({ props }) => {
     return !props.touched;
   }
 })(EditForm);
+
+//connect redux-form
+export default connect(mapStateToProps, mapDispatchToProps)(EditForm);

@@ -11,7 +11,7 @@ class OreoList extends Component {
   }
 
   handleEdit = oreoId => {
-    console.log('HANDLE EDIT ID', oreoId);
+    console.log(this.props);
     this.props.hydrateForm(oreoId);
 
     this.props.openEditform();

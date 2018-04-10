@@ -11,7 +11,6 @@ import AddFormInput from '../components/AddFormInput';
 import { tags } from '../helpers/data';
 
 const Form = props => {
-  console.log('form', props);
   return (
     <form onSubmit={props.handleSubmit(props.onSubmitHandle)}>
       <DialogContent>

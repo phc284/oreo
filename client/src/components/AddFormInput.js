@@ -10,7 +10,6 @@ const AddFormInput = ({
   errorMsg,
   ...custom
 }) => {
-  console.log('addforminput', custom);
   //create red error color
   let hasError = false;
   let multi = false;
