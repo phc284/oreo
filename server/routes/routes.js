@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { catchErrors } = require('../handlers/error_handlers');
-const oreoController = require('../controllers/oreoController');
+const oreoController = require('../controllers/OreoController');
 
 router.post('/add', catchErrors(oreoController.createOreo));
 //add user auth check later
