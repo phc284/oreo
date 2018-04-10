@@ -6,6 +6,7 @@ const expressValidator = require('express-validator');
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo')(session);
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const app = express();
 
