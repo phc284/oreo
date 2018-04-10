@@ -33,8 +33,6 @@ exports.createOreo = async (req, res) => {
   //create an array with the list of tags selected to add to model
   const oreo = await new Oreo(newBody).save();
 
-  console.log(oreo);
-
   res.send(oreo);
 };
 
@@ -54,7 +52,6 @@ exports.editOreo = async (req, res) => {
 
 exports.updateOreo = async (req, res) => {
   console.log('PUT /add/:id');
-  console.log(req.body);
 
   const newBody = formatBody(req.body);
 
@@ -63,6 +60,5 @@ exports.updateOreo = async (req, res) => {
     runValidators: true
   }).exec();
 
-  console.log(oreo);
   res.send(oreo);
 };

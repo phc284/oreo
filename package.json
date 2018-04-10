@@ -25,14 +25,12 @@
     "uuid": "^3.2.1",
     "validator": "^9.4.1"
   },
-  "cacheDirectories": [
-    "node_modules",
-    "client/node_modules"
-  ],
+  "cacheDirectories": ["node_modules", "client/node_modules"],
   "scripts": {
-    "start": "concurrently \"cd server && nodemon index.js\" \"cd client && npm start\"",
-    "build": "cd client && npm install --only=dev && npm install",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install",
+    "start":
+      "concurrently \"cd server && nodemon index.js\" \"cd client && npm start\"",
+    "build": "cd client && npm install && npm install",
+    "heroku-postbuild": "cd client && npm install && npm install",
     "setup": "npm install && cd client && npm install"
   },
   "devDependencies": {}
