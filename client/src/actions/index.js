@@ -2,8 +2,11 @@ import axios from 'axios';
 
 export const CLOSE_ADDFORM = 'CLOSE_ADDFORM';
 export const OPEN_ADDFORM = 'OPEN_ADDFORM';
+export const CLOSE_EDITFORM = 'CLOSE_EDITFORM';
+export const OPEN_EDITFORM = 'OPEN_EDITFORM';
 export const GET_FORM_ERROR = 'GET_FORM_ERROR';
 export const GET_OREOS = 'GET_OREOS';
+export const HYDRATE_FORM = 'HYDRATE_FORM';
 
 export const closeAddform = () => {
   return {
@@ -18,6 +21,21 @@ export const openAddform = () => {
     payload: true
   };
 };
+
+export const closeEditform = () => {
+  return {
+    type: CLOSE_EDITFORM,
+    payload: false
+  };
+};
+
+export const openEditform = () => {
+  return {
+    type: OPEN_EDITFORM,
+    payload: true
+  };
+};
+
 export const getFormError = error => {
   const errMsg = `You must provide a ${error}`;
   return {
@@ -31,5 +49,14 @@ export const getOreos = () => {
   return {
     type: GET_OREOS,
     payload: oreos
+  };
+};
+
+//hydrate the form
+export const hydrateForm = id => {
+  const oreo = axios.get(`/api/add/${id}`);
+  return {
+    type: HYDRATE_FORM,
+    payload: oreo
   };
 };

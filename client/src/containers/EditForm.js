@@ -7,7 +7,7 @@ import Dialog, { DialogTitle } from 'material-ui/Dialog';
 
 import Form from '../components/Form';
 
-import { openAddform, closeAddform, getOreos } from '../actions';
+import { openEditform, closeEditform } from '../actions';
 
 //validate input fields
 const validate = values => {
@@ -21,18 +21,17 @@ const validate = values => {
   return errors;
 };
 
-class AddForm extends Component {
+class EditForm extends Component {
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // console.log('DIDUPDATE');
+  }
   handleClose = () => {
-    this.props.closeAddform();
+    this.props.closeEditform();
     this.props.reset();
   };
 
   handleOpen = () => {
-    this.props.openAddform();
-  };
-
-  handleOpenAdd = () => {
-    this.props.openAddform();
+    this.props.openEditform();
   };
 
   //go back and connect to server later
@@ -44,11 +43,10 @@ class AddForm extends Component {
 
   render() {
     const { handleSubmit } = this.props;
-
     return (
       <div>
         <Dialog
-          open={this.props.addForm.addForm || false}
+          open={this.props.editForm.editForm || false}
           onClose={this.handleClose}
         >
           <DialogTitle id="form-dialog-title">Submit An Oreo</DialogTitle>
@@ -60,21 +58,31 @@ class AddForm extends Component {
 }
 
 const mapStateToProps = state => {
-  return { addForm: state.addForm, error: state.error, hydrate: state.hydrate };
+  const { oreo } = state.hydrate;
+  let initial = {
+    name: 'adfads',
+    description: 'sdfsdf'
+  };
+  console.log(initial);
+  return {
+    editForm: state.editForm,
+    hydrate: state.hydrate,
+    initialValues: initial
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ openAddform, closeAddform, getOreos }, dispatch);
+  return bindActionCreators({ openEditform, closeEditform }, dispatch);
 };
 
 //connect redux
-AddForm = connect(mapStateToProps, mapDispatchToProps)(AddForm);
+EditForm = connect(mapStateToProps, mapDispatchToProps)(EditForm);
 
 //connect redux-form
 export default reduxForm({
-  form: 'OreoAddForm',
+  form: 'OreoEditForm',
   validate,
   shouldError: ({ props }) => {
     return !props.touched;
   }
-})(AddForm);
+})(EditForm);

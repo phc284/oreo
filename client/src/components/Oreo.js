@@ -10,15 +10,38 @@ import oreoImg from '../oreo.jpg';
 const styles = {
   media: {
     height: 200
+  },
+  ButtonGroup: {
+    textAlign: 'center',
+    paddingTop: 15
+  },
+  deleteButton: {
+    color: 'red'
+  },
+  editButton: {
+    color: 'green'
   }
 };
 
 //remove ternary for tags once all cards have tags
 
-const Oreo = ({ classes, name, desc, photo, tags }) => {
+const Oreo = ({ classes, name, desc, photo, tags, handleEdit, id }) => {
   return (
     <div className="oreo">
       <Card className={classes.card}>
+        <div className={classes.ButtonGroup}>
+          <Button style={styles.deleteButton}>
+            <i className="material-icons">delete</i>
+          </Button>
+          <Button
+            style={styles.editButton}
+            onClick={() => {
+              handleEdit(id);
+            }}
+          >
+            <i className="material-icons">edit</i>
+          </Button>
+        </div>
         <CardMedia
           className={classes.media}
           image={

@@ -3,19 +3,26 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Oreo from '../components/Oreo';
-import { getOreos } from '../actions';
+import { getOreos, openEditform, closeEditform, hydrateForm } from '../actions';
 
 class OreoList extends Component {
   componentDidMount() {
     this.props.getOreos();
   }
 
+  handleEdit = oreoId => {
+    console.log('HANDLE EDIT ID', oreoId);
+    this.props.hydrateForm(oreoId);
+
+    this.props.openEditform();
+  };
+
   render() {
     const { oreos } = this.props.oreos;
     return (
       <div className="oreo-list">
         {oreos
-          ? oreos.data.map(oreo => {
+          ? oreos.map(oreo => {
               return (
                 <Oreo
                   key={oreo._id}
@@ -23,6 +30,8 @@ class OreoList extends Component {
                   desc={oreo.description}
                   photo={oreo.photo}
                   tags={oreo.tags}
+                  handleEdit={this.handleEdit}
+                  id={oreo._id}
                 />
               );
             })
@@ -32,11 +41,14 @@ class OreoList extends Component {
   }
 }
 
-const mapStateToProps = ({ oreos }) => {
-  return { oreos };
+const mapStateToProps = ({ oreos, hydrate, editForm }) => {
+  return { oreos, hydrate, editForm };
 };
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ getOreos }, dispatch);
+  return bindActionCreators(
+    { getOreos, openEditform, closeEditform, hydrateForm },
+    dispatch
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(OreoList);

@@ -6,20 +6,27 @@ const AddFormInput = ({
   fieldName,
   input,
   meta: { touched, error },
+  change,
   errorMsg,
   ...custom
 }) => {
+  console.log('addforminput', custom);
   //create red error color
   let hasError = false;
   let multi = false;
-  let rows = 1;
   if ((touched && error !== undefined) || errorMsg) {
     hasError = true;
   }
+
+  //set rows for input
+  let rows = 1;
   if (fieldName === 'description') {
     multi = true;
     rows = 2;
   }
+
+  //set name and desc values based on fieldName
+  // let defaultValue = custom[`${fieldName}Val`];
 
   if (fieldName === 'photo') {
     return (
