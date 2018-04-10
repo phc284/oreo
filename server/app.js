@@ -14,6 +14,8 @@ const { flashValidationErrors } = require('./handlers/error_handlers');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(express.static(path.join(__dirname, '../client/build')));
+
 // Exposes a bunch of methods for validating data. Used heavily on userController.validateRegister
 app.use(expressValidator());
 
