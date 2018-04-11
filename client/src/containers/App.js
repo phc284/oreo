@@ -1,21 +1,16 @@
 import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-import Header from './Header';
-import Searchbar from './Searchbar';
-import OreoList from './OreoList';
-import Filter from './Filter';
-import Footer from '../components/Footer';
+import Homepage from '../components/Homepage';
+import OreoPage from './OreoPage';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Header />
-        <Searchbar />
-        <OreoList />
-        <Filter />
-        <Footer />
-      </div>
+      <Switch>
+        <Route exact path="/" component={Homepage} />
+        <Route path="/oreo" component={OreoPage} />
+      </Switch>
     );
   }
 }

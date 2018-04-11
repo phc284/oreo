@@ -4,6 +4,7 @@ import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 import Chip from 'material-ui/Chip';
+import { Link } from 'react-router-dom';
 
 import oreoImg from '../oreo.jpg';
 
@@ -83,9 +84,11 @@ const Oreo = ({
             : null}
         </CardContent>
         <CardActions>
-          <Button size="small" color="primary">
-            More Info
-          </Button>
+          <Link to={{ pathname: `/oreo/${name}` }}>
+            <Button size="small" color="primary">
+              More Info
+            </Button>
+          </Link>
         </CardActions>
       </Card>
     </div>
