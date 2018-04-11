@@ -69,6 +69,9 @@ const Oreo = ({
           <Typography component="p" style={{ marginBottom: 10 }}>
             {desc}
           </Typography>
+          <Typography variant="subheading" style={{ marginBottom: 10 }}>
+            Rating: 8/10
+          </Typography>
           {tags
             ? tags.map((tag, i) => (
                 <Chip

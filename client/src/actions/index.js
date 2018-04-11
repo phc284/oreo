@@ -76,12 +76,3 @@ export const hydrateForm = id => {
     payload: oreo
   };
 };
-
-//delete the cookie
-// export const hydrateForm = id => {
-//   const oreo = axios.get(`/api/add/${id}`);
-//   return {
-//     type: HYDRATE_FORM,
-//     payload: oreo
-//   };
-// };
