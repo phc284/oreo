@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import axios from 'axios';
 
 import Oreo from '../components/Oreo';
-import { getOreos, openEditform, closeEditform, hydrateForm } from '../actions';
+import DeleteModal from '../components/DeleteModal';
+import {
+  getOreos,
+  openEditform,
+  closeEditform,
+  hydrateForm,
+  openDeleteModal,
+  closeDeleteModal
+} from '../actions';
 
 class OreoList extends Component {
   componentDidMount() {
@@ -16,10 +25,22 @@ class OreoList extends Component {
     this.props.openEditform();
   };
 
+  handleDelete = id => {
+    axios.delete(`/api/delete/${id}`);
+    this.props.closeDeleteModal();
+    this.props.getOreos();
+  };
+
   render() {
     const { oreos } = this.props.oreos;
     return (
       <div className="oreo-list">
+        <DeleteModal
+          isOpen={this.props.deleteModal.deleteModal}
+          handleClose={this.props.closeDeleteModal}
+          id={this.props.deleteModal.id}
+          handleDelete={this.handleDelete}
+        />
         {oreos
           ? oreos.map(oreo => {
               return (
@@ -30,7 +51,9 @@ class OreoList extends Component {
                   photo={oreo.photo}
                   tags={oreo.tags}
                   handleEdit={this.handleEdit}
+                  handleDelete={this.handleDelete}
                   id={oreo._id}
+                  openDelete={this.props.openDeleteModal}
                 />
               );
             })
@@ -40,12 +63,19 @@ class OreoList extends Component {
   }
 }
 
-const mapStateToProps = ({ oreos, hydrate, editForm }) => {
-  return { oreos, hydrate, editForm };
+const mapStateToProps = ({ oreos, hydrate, editForm, deleteModal }) => {
+  return { oreos, hydrate, editForm, deleteModal };
 };
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
-    { getOreos, openEditform, closeEditform, hydrateForm },
+    {
+      getOreos,
+      openEditform,
+      closeEditform,
+      hydrateForm,
+      openDeleteModal,
+      closeDeleteModal
+    },
     dispatch
   );
 };

@@ -62,3 +62,14 @@ exports.updateOreo = async (req, res) => {
 
   res.send(oreo);
 };
+
+exports.deleteOreo = async (req, res) => {
+  console.log('DELETE /delete/:id');
+
+  const newBody = formatBody(req.body);
+
+  await Oreo.deleteOne({ _id: req.params.id });
+  console.log('DELETED');
+
+  res.send('success');
+};

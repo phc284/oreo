@@ -6,6 +6,7 @@ import EditFormReducer from './editform_reducer';
 import ErrorReducer from './error_reducer';
 import OreosReducer from './oreos_reducer';
 import HydrateReducer from './hydrate_reducer';
+import DeleteReducer from './delete_reducer';
 
 const rootReducer = combineReducers({
   // ...your other reducers here
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   // for custom keys look up the docs for 'getFormState'
   addForm: AddFormReducer,
   editForm: EditFormReducer,
+  deleteModal: DeleteReducer,
   hydrate: HydrateReducer,
   error: ErrorReducer,
   oreos: OreosReducer,

@@ -10,5 +10,6 @@ router.get('/add/:id', catchErrors(oreoController.editOreo));
 router.get('/oreos', catchErrors(oreoController.getOreos));
 
 router.put('/add/:id', catchErrors(oreoController.updateOreo));
+router.delete('/delete/:id', catchErrors(oreoController.deleteOreo));
 
 module.exports = router;

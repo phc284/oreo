@@ -25,12 +25,27 @@ const styles = {
 
 //remove ternary for tags once all cards have tags
 
-const Oreo = ({ classes, name, desc, photo, tags, handleEdit, id }) => {
+const Oreo = ({
+  classes,
+  name,
+  desc,
+  photo,
+  tags,
+  handleEdit,
+  openDelete,
+  id
+}) => {
   return (
     <div className="oreo">
       <Card className={classes.card}>
         <div className={classes.ButtonGroup}>
-          <Button style={styles.deleteButton}>
+          <Button
+            style={styles.deleteButton}
+            onClick={() => {
+              console.log(id);
+              openDelete(id);
+            }}
+          >
             <i className="material-icons">delete</i>
           </Button>
           <Button

@@ -4,6 +4,8 @@ export const CLOSE_ADDFORM = 'CLOSE_ADDFORM';
 export const OPEN_ADDFORM = 'OPEN_ADDFORM';
 export const CLOSE_EDITFORM = 'CLOSE_EDITFORM';
 export const OPEN_EDITFORM = 'OPEN_EDITFORM';
+export const CLOSE_DELETE = 'CLOSE_DELETE';
+export const OPEN_DELETE = 'OPEN_DELETE';
 export const GET_FORM_ERROR = 'GET_FORM_ERROR';
 export const GET_OREOS = 'GET_OREOS';
 export const HYDRATE_FORM = 'HYDRATE_FORM';
@@ -35,6 +37,20 @@ export const openEditform = () => {
     payload: true
   };
 };
+export const closeDeleteModal = () => {
+  return {
+    type: CLOSE_DELETE,
+    payload: false
+  };
+};
+
+export const openDeleteModal = id => {
+  return {
+    type: OPEN_DELETE,
+    payload: true,
+    id
+  };
+};
 
 export const getFormError = error => {
   const errMsg = `You must provide a ${error}`;
@@ -60,3 +76,12 @@ export const hydrateForm = id => {
     payload: oreo
   };
 };
+
+//delete the cookie
+// export const hydrateForm = id => {
+//   const oreo = axios.get(`/api/add/${id}`);
+//   return {
+//     type: HYDRATE_FORM,
+//     payload: oreo
+//   };
+// };
