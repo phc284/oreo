@@ -34,7 +34,8 @@ const Oreo = ({
   tags,
   handleEdit,
   openDelete,
-  id
+  id,
+  hydrate
 }) => {
   return (
     <div className="oreo">
@@ -84,7 +85,7 @@ const Oreo = ({
             : null}
         </CardContent>
         <CardActions>
-          <Link to={{ pathname: `/oreo/${name}` }}>
+          <Link to={{ pathname: `/oreo/${id}` }}>
             <Button size="small" color="primary">
               More Info
             </Button>

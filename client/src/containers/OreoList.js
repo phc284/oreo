@@ -54,6 +54,7 @@ class OreoList extends Component {
                   handleDelete={this.handleDelete}
                   id={oreo._id}
                   openDelete={this.props.openDeleteModal}
+                  hydrate={this.props.hydrateForm}
                 />
               );
             })

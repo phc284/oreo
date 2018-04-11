@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/index.css';
+import './styles/oreo-page.css';
 import App from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
 import reducers from './reducers/root_reducer';

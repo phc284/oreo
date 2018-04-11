@@ -1,0 +1,7 @@
+.oreo-page {
+  margin-top: 20px;
+  text-align: center;
+  display: grid;
+  grid-row-gap: 20px;
+  font-size: 40px;
+}

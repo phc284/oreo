@@ -30,7 +30,6 @@ const initializeTags = tags => {
 class EditForm extends Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
     const { hydrate } = this.props;
-    console.log(hydrate);
     //if not first time edit button pressed (there are prev props)
     if (prevProps.hydrate.oreo) {
       if (prevProps.hydrate.oreo.name !== hydrate.oreo.name) {

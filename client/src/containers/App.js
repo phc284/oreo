@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <Switch>
         <Route exact path="/" component={Homepage} />
-        <Route path="/oreo" component={OreoPage} />
+        <Route path="/oreo/:id" component={OreoPage} />
       </Switch>
     );
   }

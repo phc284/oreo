@@ -44,6 +44,14 @@ exports.getOreos = async (req, res) => {
   res.send(oreos);
 };
 
+exports.getOreo = async (req, res) => {
+  console.log(`GET /oreo/${req.params.id}`);
+
+  //get all the oreos from the database
+  const oreo = await Oreo.findOne({ _id: req.params.id });
+  res.send(oreo);
+};
+
 exports.editOreo = async (req, res) => {
   console.log('GET /add/:id');
   const oreo = await Oreo.findOne({ _id: req.params.id });
