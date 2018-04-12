@@ -15,7 +15,6 @@ import { withStyles } from "material-ui/styles";
 import { getNames, getOreos } from "../actions";
 
 const renderTextField = inputProps => {
-  console.log("inputprops", inputProps);
   const { classes, labelText, ref, ...other } = inputProps;
 
   return (
@@ -57,7 +56,6 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
 }
 
 function renderSuggestionsContainer(options) {
-  console.log("options", options);
   const { containerProps, children } = options;
 
   return (
@@ -97,6 +95,7 @@ const styles = theme => ({
 class SearchBar extends Component {
   state = {
     value: "",
+    id: "",
     suggestions: []
   };
 
@@ -138,17 +137,15 @@ class SearchBar extends Component {
     });
   };
 
+  onSuggestionSelected = (event, ...other) => {
+    this.props.history.push(`/oreo/${other[0].suggestion._id}`);
+  };
+
   componentDidMount() {
     this.props.getNames();
   }
   render() {
     // console.log(this.props);
-    const labelText = "Search for your favorite Oreo...";
-    const { handleSubmit } = this.props;
-    const onSubmit = values => {
-      const query = values.inputSearch;
-    };
-
     const { classes } = this.props;
 
     return (
@@ -167,6 +164,7 @@ class SearchBar extends Component {
           renderSuggestionsContainer={renderSuggestionsContainer}
           getSuggestionValue={getSuggestionValue}
           renderSuggestion={renderSuggestion}
+          onSuggestionSelected={this.onSuggestionSelected}
           inputProps={{
             classes,
             placeholder: "Search for an Oreo",
