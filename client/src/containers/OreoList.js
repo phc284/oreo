@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import axios from 'axios';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import axios from "axios";
 
-import Oreo from '../components/Oreo';
-import DeleteModal from '../components/DeleteModal';
+import Oreo from "../components/Oreo";
+import DeleteModal from "../components/DeleteModal";
 import {
   getOreos,
   openEditform,
@@ -12,7 +12,7 @@ import {
   hydrateForm,
   openDeleteModal,
   closeDeleteModal
-} from '../actions';
+} from "../actions";
 
 class OreoList extends Component {
   componentDidMount() {

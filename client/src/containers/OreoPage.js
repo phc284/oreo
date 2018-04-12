@@ -1,20 +1,19 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Typography from 'material-ui/Typography';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import Typography from "material-ui/Typography";
 // import { bindActionCreators } from 'redux';
-import axios from 'axios';
+import axios from "axios";
 
-import Header from './Header';
-import ReviewList from './oreopage/ReviewList';
+import Header from "./Header";
+import ReviewList from "./oreopage/ReviewList";
 
-import oreoImg from '../oreo.jpg';
+import oreoImg from "../oreo.jpg";
 
 class OreoPage extends Component {
   state = {
     oreo: {}
   };
   componentDidMount() {
-    console.log(this.props);
     window.scrollTo(0, 0);
     axios
       .get(`/api/oreo/${this.props.match.params.id}`)
@@ -26,7 +25,6 @@ class OreoPage extends Component {
   }
   render() {
     const { oreo } = this.state;
-    console.log(oreo);
     return (
       <div className="oreo-page">
         <Header page={false} />
@@ -36,7 +34,7 @@ class OreoPage extends Component {
         <div className="info">
           <div>{oreo.name}</div>
           <div>{oreo.description}</div>
-          <div>{oreo.tags ? oreo.tags.join(', ') : ''}</div>
+          <div>{oreo.tags ? oreo.tags.join(", ") : ""}</div>
         </div>
         <ReviewList />
       </div>
@@ -45,7 +43,7 @@ class OreoPage extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('OREOPAGE STATE', state);
+  console.log("OREOPAGE STATE", state);
   return state;
 };
 
