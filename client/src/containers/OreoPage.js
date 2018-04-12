@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Typography from 'material-ui/Typography';
 // import { bindActionCreators } from 'redux';
 import axios from 'axios';
+
+import Header from './Header';
+import ReviewList from './oreopage/ReviewList';
+
+import oreoImg from '../oreo.jpg';
 
 class OreoPage extends Component {
   state = {
@@ -22,9 +28,16 @@ class OreoPage extends Component {
     console.log(oreo);
     return (
       <div className="oreo-page">
-        <div>{oreo.name}</div>
-        <div>{oreo.description}</div>
-        <div>{oreo.tags ? oreo.tags.join(', ') : ''}</div>
+        <Header page={false} />
+        <div className="picture">
+          <img src={oreoImg} alt="oreo" />
+        </div>
+        <div className="info">
+          <div>{oreo.name}</div>
+          <div>{oreo.description}</div>
+          <div>{oreo.tags ? oreo.tags.join(', ') : ''}</div>
+        </div>
+        <ReviewList />
       </div>
     );
   }

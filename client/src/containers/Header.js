@@ -48,14 +48,18 @@ class Header extends Component {
             <Typography className={classes.Typography} variant="title">
               ratemyoreo
             </Typography>
-            <AddForm />
-            <EditForm />
-            <Button variant="raised" onClick={this.handleOpenAdd}>
-              Add a cookie
-            </Button>
-            <Button variant="raised" style={styles.Button}>
-              Login
-            </Button>
+            {this.props.page ? (
+              <div>
+                <AddForm />
+                <EditForm />
+                <Button variant="raised" onClick={this.handleOpenAdd}>
+                  Add a cookie
+                </Button>
+                <Button variant="raised" style={styles.Button}>
+                  Login
+                </Button>
+              </div>
+            ) : null}
           </Toolbar>
         </AppBar>
       </div>

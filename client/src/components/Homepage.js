@@ -8,7 +8,7 @@ import Footer from './Footer';
 const Homepage = () => {
   return (
     <div className="App">
-      <Header />
+      <Header page={true} />
       <Searchbar />
       <OreoList />
       <Filter />
