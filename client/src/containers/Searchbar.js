@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Field, reduxForm } from "redux-form";
-import { Button, TextField } from "material-ui";
+import { reduxForm } from "redux-form";
+import { TextField } from "material-ui";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Link } from "react-router-dom";
 
 import Autosuggest from "react-autosuggest";
 import match from "autosuggest-highlight/match";
@@ -145,7 +144,6 @@ class SearchBar extends Component {
     this.props.getNames();
   }
   render() {
-    // console.log(this.props);
     const { classes } = this.props;
 
     return (
