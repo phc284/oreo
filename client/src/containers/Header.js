@@ -6,6 +6,7 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 
 import { openAddform, closeAddform } from '../actions';
 
@@ -16,11 +17,13 @@ const styles = {
   Typography: {
     fontSize: '40px',
     color: 'white',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
+  },
+  Link: {
     flex: 1
   },
   root: {
-    flexGrow: 1,
+    flexGrow: 2,
     width: '100%',
     margin: 0
   },
@@ -31,6 +34,9 @@ const styles = {
   Button: {
     backgroundColor: 'green',
     marginLeft: 15
+  },
+  buttons: {
+    alignItems: 'flex-end'
   }
 };
 
@@ -45,11 +51,13 @@ class Header extends Component {
       <div className={containerClass}>
         <AppBar position="static" style={styles.AppBar}>
           <Toolbar>
-            <Typography className={classes.Typography} variant="title">
-              ratemyoreo
-            </Typography>
+            <Link to="/" className={classes.Link}>
+              <Typography variant="title" className={classes.Typography}>
+                ratemyoreo
+              </Typography>
+            </Link>
             {this.props.page ? (
-              <div>
+              <div style={styles.buttons}>
                 <AddForm />
                 <EditForm />
                 <Button variant="raised" onClick={this.handleOpenAdd}>

@@ -89,6 +89,6 @@ body {
   }
 
   .header button {
-    display: none;
+    /* display: none; */
   }
 }

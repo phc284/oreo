@@ -15,6 +15,7 @@ class OreoPage extends Component {
   };
   componentDidMount() {
     console.log(this.props);
+    window.scrollTo(0, 0);
     axios
       .get(`/api/oreo/${this.props.match.params.id}`)
       .then(({ data: oreo }) => {
