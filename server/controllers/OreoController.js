@@ -43,7 +43,18 @@ exports.getOreos = async (req, res) => {
   const oreos = await Oreo.find().sort({ created: "desc" });
   res.send(oreos);
 };
+
 exports.getFilteredOreos = async (req, res) => {
+  console.log("GET /oreos/:filter");
+  const filter = req.params.filter;
+
+  //get filtered oreos from the database
+  const oreos = await Oreo.find({ tags: filter }).sort({ created: "desc" });
+
+  res.send(oreos);
+};
+
+exports.getSearchedOreos = async (req, res) => {
   console.log("GET /oreos/:filter");
   const filter = req.params.filter;
 
@@ -89,4 +100,12 @@ exports.deleteOreo = async (req, res) => {
   console.log("DELETED");
 
   res.send("success");
+};
+exports.getNames = async (req, res) => {
+  console.log("GET /names");
+
+  const names = await Oreo.find({}, { name: 1, _id: 1 });
+  console.log(names);
+
+  res.send(names);
 };

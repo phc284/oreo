@@ -10,6 +10,7 @@ export const GET_FORM_ERROR = "GET_FORM_ERROR";
 export const GET_OREOS = "GET_OREOS";
 export const GET_FILTERED_OREOS = "GET_FILTERED_OREOS";
 export const HYDRATE_FORM = "HYDRATE_FORM";
+export const GET_NAMES = "GET_NAMES";
 
 export const closeAddform = () => {
   return {
@@ -83,5 +84,13 @@ export const getFilteredOreos = filter => {
   return {
     type: GET_FILTERED_OREOS,
     payload: oreos
+  };
+};
+
+export const getNames = query => {
+  const names = axios.get("/api/names");
+  return {
+    type: GET_NAMES,
+    payload: names
   };
 };
