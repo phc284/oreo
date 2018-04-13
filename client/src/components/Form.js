@@ -28,12 +28,16 @@ const Form = props => {
           fieldName="description"
           fieldLabel="Description"
         />
-        <Field
-          name="photo"
-          component={AddFormInput}
-          fieldName="photo"
-          fieldLabel="Photo"
-        />
+        <div>
+          <span>Photo: </span>
+          <Field
+            name="photo"
+            component="input"
+            fieldName="photo"
+            fieldLabel="Photo"
+            type="file"
+          />
+        </div>
         <FormGroup row>
           {tags.map((tag, index) => {
             return (

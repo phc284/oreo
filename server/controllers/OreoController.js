@@ -1,16 +1,16 @@
-const mongoose = require("mongoose");
-const Oreo = mongoose.model("Oreo");
+const mongoose = require('mongoose');
 
-const createDOMPurify = require("dompurify");
-const { JSDOM } = require("jsdom");
-
-const window = new JSDOM("").window;
-const DOMPurify = createDOMPurify(window);
+const Oreo = mongoose.model('Oreo');
 
 const formatBody = body => {
-  const { name, description, photo, ...bodyTags } = body;
+  let { name, description, photo, ...bodyTags } = body;
+  name = name.trim();
+  description = description.trim();
+
   let tags = [];
-  //if tag is removed from client, remove from list
+
+  // if tag is removed from client, remove from list
+
   for (let key in bodyTags) {
     if (bodyTags[key] === true) {
       tags = [...tags, [key]];
@@ -27,39 +27,39 @@ const formatBody = body => {
 };
 
 exports.createOreo = async (req, res) => {
-  console.log("POST /add", req.body);
+  console.log('POST /add', req.body);
 
   const newBody = formatBody(req.body);
-  //create an array with the list of tags selected to add to model
+  // create an array with the list of tags selected to add to model
   const oreo = await new Oreo(newBody).save();
 
   res.send(oreo);
 };
 
 exports.getOreos = async (req, res) => {
-  console.log("GET /oreos");
+  console.log('GET /oreos');
 
-  //get all the oreos from the database
-  const oreos = await Oreo.find().sort({ created: "desc" });
+  // get all the oreos from the database
+  const oreos = await Oreo.find().sort({ created: 'desc' });
   res.send(oreos);
 };
 
 exports.getFilteredOreos = async (req, res) => {
-  console.log("GET /oreos/:filter");
-  const filter = req.params.filter;
+  console.log('GET /oreos/:filter');
+  const { filter } = req.params;
 
-  //get filtered oreos from the database
-  const oreos = await Oreo.find({ tags: filter }).sort({ created: "desc" });
+  // get filtered oreos from the database
+  const oreos = await Oreo.find({ tags: filter }).sort({ created: 'desc' });
 
   res.send(oreos);
 };
 
 exports.getSearchedOreos = async (req, res) => {
-  console.log("GET /oreos/:filter");
-  const filter = req.params.filter;
+  console.log('GET /oreos/:query');
+  const { query } = req.params;
 
-  //get filtered oreos from the database
-  const oreos = await Oreo.find({ tags: filter }).sort({ created: "desc" });
+  // get filtered oreos from the database
+  const oreos = await Oreo.find({ tags: query }).sort({ created: 'desc' });
 
   res.send(oreos);
 };
@@ -67,24 +67,24 @@ exports.getSearchedOreos = async (req, res) => {
 exports.getOreo = async (req, res) => {
   console.log(`GET /oreo/${req.params.id}`);
 
-  //get all the oreos from the database
+  // get all the oreos from the database
   const oreo = await Oreo.findOne({ _id: req.params.id });
   res.send(oreo);
 };
 
 exports.editOreo = async (req, res) => {
-  console.log("GET /add/:id");
+  console.log('GET /add/:id');
   const oreo = await Oreo.findOne({ _id: req.params.id });
   res.send(oreo);
 };
 
 exports.updateOreo = async (req, res) => {
-  console.log("PUT /add/:id");
+  console.log('PUT /add/:id');
 
   const newBody = formatBody(req.body);
 
   const oreo = await Oreo.findOneAndUpdate({ _id: req.params.id }, newBody, {
-    new: true, //return new store instead of the old one
+    new: true, // return new store instead of the old one
     runValidators: true
   }).exec();
 
@@ -92,17 +92,15 @@ exports.updateOreo = async (req, res) => {
 };
 
 exports.deleteOreo = async (req, res) => {
-  console.log("DELETE /delete/:id");
-
-  const newBody = formatBody(req.body);
+  console.log('DELETE /delete/:id');
 
   await Oreo.deleteOne({ _id: req.params.id });
-  console.log("DELETED");
+  console.log('DELETED');
 
-  res.send("success");
+  res.send('success');
 };
 exports.getNames = async (req, res) => {
-  console.log("GET /names");
+  console.log('GET /names');
 
   const names = await Oreo.find({}, { name: 1, _id: 1 });
   console.log(names);

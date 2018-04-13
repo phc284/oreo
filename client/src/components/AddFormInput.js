@@ -27,33 +27,19 @@ const AddFormInput = ({
   //set name and desc values based on fieldName
   // let defaultValue = custom[`${fieldName}Val`];
 
-  if (fieldName === 'photo') {
-    return (
-      <TextField
-        margin="dense"
-        fullWidth
-        name={fieldName}
-        label={fieldLabel}
-        helperText={touched && error}
-        {...input}
-        error={hasError}
-      />
-    );
-  } else {
-    return (
-      <TextField
-        margin="dense"
-        fullWidth
-        multiline={multi}
-        rows={rows}
-        name={fieldName}
-        label={fieldLabel}
-        helperText={touched && error}
-        {...input}
-        error={hasError}
-      />
-    );
-  }
+  return (
+    <TextField
+      margin="dense"
+      fullWidth
+      multiline={multi}
+      rows={rows}
+      name={fieldName}
+      label={fieldLabel}
+      helperText={touched && error}
+      {...input}
+      error={hasError}
+    />
+  );
 };
 
 export default AddFormInput;
