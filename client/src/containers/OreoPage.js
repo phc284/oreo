@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Typography from "material-ui/Typography";
+// import Typography from "material-ui/Typography";
 // import { bindActionCreators } from 'redux';
 import axios from "axios";
 
