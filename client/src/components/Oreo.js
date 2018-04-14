@@ -5,6 +5,7 @@ import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 import Chip from 'material-ui/Chip';
 import { Link } from 'react-router-dom';
+import Grow from 'material-ui/transitions/Grow';
 
 import oreoImg from '../oreo.jpg';
 
@@ -36,60 +37,66 @@ const Oreo = ({
   handleEdit,
   openDelete,
   id,
-  hydrate
+  hydrate,
+  checked
 }) => {
+  setTimeout(() => {
+    checked = false;
+  }, 500);
   return (
     <div className="oreo">
-      <Card className={classes.card}>
-        <div className={classes.ButtonGroup}>
-          <Button
-            style={styles.deleteButton}
-            onClick={() => {
-              openDelete(id);
-            }}
-          >
-            <i className="material-icons">delete</i>
-          </Button>
-          <Button
-            style={styles.editButton}
-            onClick={() => {
-              handleEdit(id);
-            }}
-          >
-            <i className="material-icons">edit</i>
-          </Button>
-        </div>
-        <CardMedia
-          className={classes.media}
-          image={photo ? photo : oreoImg}
-          title={name}
-        />
-        <CardContent>
-          <Typography variant="headline">{name}</Typography>
-          <Typography component="p" style={{ marginBottom: 10 }}>
-            {desc}
-          </Typography>
-          <Typography variant="subheading" style={{ marginBottom: 10 }}>
-            Rating: 8/10
-          </Typography>
-          {tags
-            ? tags.map((tag, i) => (
-                <Chip
-                  key={i}
-                  label={tag}
-                  style={{ fontSize: 10, fontWeight: 'bold', margin: 3 }}
-                />
-              ))
-            : null}
-        </CardContent>
-        <CardActions>
-          <Link to={{ pathname: `/oreo/${id}` }}>
-            <Button size="small" color="primary">
-              More Info
+      <Grow in={checked}>
+        <Card className={classes.card}>
+          <div className={classes.ButtonGroup}>
+            <Button
+              style={styles.deleteButton}
+              onClick={() => {
+                openDelete(id);
+              }}
+            >
+              <i className="material-icons">delete</i>
             </Button>
-          </Link>
-        </CardActions>
-      </Card>
+            <Button
+              style={styles.editButton}
+              onClick={() => {
+                handleEdit(id);
+              }}
+            >
+              <i className="material-icons">edit</i>
+            </Button>
+          </div>
+          <CardMedia
+            className={classes.media}
+            image={photo ? photo : oreoImg}
+            title={name}
+          />
+          <CardContent>
+            <Typography variant="headline">{name}</Typography>
+            <Typography component="p" style={{ marginBottom: 10 }}>
+              {desc}
+            </Typography>
+            <Typography variant="subheading" style={{ marginBottom: 10 }}>
+              Rating: 8/10
+            </Typography>
+            {tags
+              ? tags.map((tag, i) => (
+                  <Chip
+                    key={i}
+                    label={tag}
+                    style={{ fontSize: 10, fontWeight: 'bold', margin: 3 }}
+                  />
+                ))
+              : null}
+          </CardContent>
+          <CardActions>
+            <Link to={{ pathname: `/oreo/${id}` }}>
+              <Button size="small" color="primary">
+                More Info
+              </Button>
+            </Link>
+          </CardActions>
+        </Card>
+      </Grow>
     </div>
   );
 };

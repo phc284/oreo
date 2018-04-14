@@ -17,8 +17,14 @@ import {
 } from '../actions';
 
 class OreoList extends Component {
+  state = {
+    checked: false
+  };
   componentDidMount() {
     this.props.getOreos();
+    this.setState({
+      checked: true
+    });
   }
 
   handleEdit = oreoId => {
@@ -39,7 +45,6 @@ class OreoList extends Component {
   };
 
   render() {
-    console.log('oreolist', this.props);
     const { oreos } = this.props.oreos;
     return (
       <div className="oreo-list">
@@ -64,6 +69,7 @@ class OreoList extends Component {
                   id={oreo._id}
                   openDelete={this.props.openDeleteModal}
                   hydrate={this.props.hydrateForm}
+                  checked={this.state.checked}
                 />
               );
             })

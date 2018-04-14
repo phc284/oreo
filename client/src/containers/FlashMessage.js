@@ -12,7 +12,6 @@ class FlashMessage extends Component {
   };
 
   render() {
-    console.log('renderlist', this.props);
     const { id, text } = this.props.messages;
     return (
       <Dialog open={this.props.flashState}>
