@@ -62,8 +62,25 @@ class EditForm extends Component {
   onSubmit = formValues => {
     const id = this.props.hydrate.oreo._id;
 
+    const { name, description, photo, ...tags } = formValues;
+    console.log(name, description, photo, tags);
+    let formData = new FormData();
+    if (photo) {
+      formData.append('photo', photo.file);
+    }
+
+    formData.append('description', description);
+    formData.append('name', name);
+    formData.append('tags', tags);
+    const options = {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': 'multipart/form-data'
+      }
+    };
+
     //make a success indicator
-    axios.put(`/api/add/${id}`, formValues).then(() => {
+    axios.put(`/api/add/${id}`, formData, options).then(() => {
       this.props.addFlashMessage({
         type: 'success',
         text: 'Succsefully Edited'

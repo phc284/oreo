@@ -120,38 +120,37 @@ exports.updateOreo = async (req, res) => {
   console.log('PUT /add/:id');
 
   console.log(req.files);
-  const photo = req.files[0];
 
+  const photo = req.files[0];
   const newBody = formatBody(req.body);
 
-  // const oreo = await Oreo.findOneAndUpdate({ _id: req.params.id }, newBody, {
-  //   new: true, // return new store instead of the old one
-  //   runValidators: true
-  // }).exec();
+  if (photo) {
+    // console.log('fileName', photo);
+    const url = `https://api.cloudinary.com/v1_1/${
+      process.env.CLOUDINARY_NAME
+    }/upload`;
 
-  // if (photo) {
-  //   // console.log('fileName', photo);
-  //   const url = `https://api.cloudinary.com/v1_1/${
-  //     process.env.CLOUDINARY_NAME
-  //   }/upload`;
-
-  //   cloudinary.v2.uploader
-  //     .upload_stream({ resource_type: 'raw' }, async function(error, result) {
-  //       newBody.photo = result.secure_url;
-  //       const oreo = await new Oreo(newBody).save();
-  //       console.log(oreo);
-  //       req.flash(
-  //         'success',
-  //         `Sucessfully Created ${oreo.name}. Care to leave a review?`
-  //       );
-
-  //       console.log(req.flash);
-
-  //       res.redirect(`/`);
-  //     })
-  //     .end(photo.buffer);
-
-  // res.send(oreo);
+    cloudinary.v2.uploader
+      .upload_stream({ resource_type: 'raw' }, async function(error, result) {
+        newBody.photo = result.secure_url;
+        const oreo = await Oreo.findOneAndUpdate(
+          { _id: req.params.id },
+          newBody,
+          {
+            new: true, // return new store instead of the old one
+            runValidators: true
+          }
+        ).exec();
+        res.send(oreo);
+      })
+      .end(photo.buffer);
+  } else {
+    const oreo = await Oreo.findOneAndUpdate({ _id: req.params.id }, newBody, {
+      new: true, // return new store instead of the old one
+      runValidators: true
+    }).exec();
+    res.send(oreo);
+  }
 };
 
 exports.deleteOreo = async (req, res) => {
