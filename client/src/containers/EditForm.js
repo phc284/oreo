@@ -56,7 +56,6 @@ class EditForm extends Component {
 
   handleClose = () => {
     this.props.closeEditform();
-    this.props.destroy();
   };
 
   //go back and connect to server later
