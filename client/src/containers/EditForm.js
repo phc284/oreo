@@ -59,9 +59,7 @@ class EditForm extends Component {
     const id = this.props.hydrate.oreo._id;
 
     //make a success indicator
-    await axios.put(`/api/add/${id}`, formValues).then(() => {
-      console.log('success');
-    });
+    await axios.put(`/api/add/${id}`, formValues);
     this.handleClose();
     this.props.getOreos();
   };

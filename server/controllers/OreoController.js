@@ -1,11 +1,24 @@
 const mongoose = require('mongoose');
+const uuid = require('uuid');
+const axios = require('axios');
+
+const cloudinary = require('cloudinary');
 
 const Oreo = mongoose.model('Oreo');
 
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+  upload_preset: process.env.CLOUDINARY_PRESET
+});
+
 const formatBody = body => {
-  let { name, description, photo, ...bodyTags } = body;
+  let { name, description, ...bodyTags } = body;
   name = name.trim();
   description = description.trim();
+
+  // console.log(photo);
 
   let tags = [];
 
@@ -20,20 +33,38 @@ const formatBody = body => {
   const newBody = {
     name,
     description,
-    photo,
     tags
   };
   return newBody;
 };
 
 exports.createOreo = async (req, res) => {
-  console.log('POST /add', req.body);
+  console.log('POST /add');
+  // console.log(req);
+  // console.log('req.body', req.body);
+  const photo = req.files[0];
 
   const newBody = formatBody(req.body);
-  // create an array with the list of tags selected to add to model
-  const oreo = await new Oreo(newBody).save();
 
-  res.send(oreo);
+  if (photo) {
+    // console.log('fileName', photo);
+    const url = `https://api.cloudinary.com/v1_1/${
+      process.env.CLOUDINARY_NAME
+    }/upload`;
+
+    cloudinary.v2.uploader
+      .upload_stream({ resource_type: 'raw' }, async function(error, result) {
+        newBody.photo = result.secure_url;
+        const oreo = await new Oreo(newBody).save();
+        console.log(oreo);
+        res.send(oreo);
+      })
+      .end(photo.buffer);
+  }
+
+  // create an array with the list of tags selected to add to model
+
+  // res.send(oreo);
 };
 
 exports.getOreos = async (req, res) => {
@@ -103,7 +134,6 @@ exports.getNames = async (req, res) => {
   console.log('GET /names');
 
   const names = await Oreo.find({}, { name: 1, _id: 1 });
-  console.log(names);
 
   res.send(names);
 };

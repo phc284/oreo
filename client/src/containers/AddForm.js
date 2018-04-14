@@ -37,7 +37,21 @@ class AddForm extends Component {
 
   //go back and connect to server later
   onSubmit = async formValues => {
-    await axios.post(`/api/add/${''}`, formValues);
+    const { name, description, photo, ...tags } = formValues;
+    console.log(name, description, photo, tags);
+    let formData = new FormData();
+
+    formData.append('photo', photo.file);
+    formData.append('description', description);
+    formData.append('name', name);
+    formData.append('tags', tags);
+    const options = {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': 'multipart/form-data'
+      }
+    };
+    await axios.post(`/api/add/`, formData, options);
     this.handleClose();
     this.props.getOreos();
   };

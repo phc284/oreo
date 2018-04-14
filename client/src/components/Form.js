@@ -7,6 +7,7 @@ import { Field } from 'redux-form';
 import Check from '../components/Check';
 
 import AddFormInput from '../components/AddFormInput';
+import FileUpload from '../components/FileUpload';
 
 import { tags } from '../helpers/data';
 
@@ -28,16 +29,7 @@ const Form = props => {
           fieldName="description"
           fieldLabel="Description"
         />
-        <div>
-          <span>Photo: </span>
-          <Field
-            name="photo"
-            component="input"
-            fieldName="photo"
-            fieldLabel="Photo"
-            type="file"
-          />
-        </div>
+        <Field name="photo" component={FileUpload} type="file" />
         <FormGroup row>
           {tags.map((tag, index) => {
             return (

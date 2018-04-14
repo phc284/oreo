@@ -37,6 +37,7 @@ const Oreo = ({
   id,
   hydrate
 }) => {
+  console.log(photo);
   return (
     <div className="oreo">
       <Card className={classes.card}>
@@ -61,9 +62,7 @@ const Oreo = ({
         </div>
         <CardMedia
           className={classes.media}
-          image={
-            photo ? (photo.includes('jpg', 'png') ? photo : oreoImg) : oreoImg
-          }
+          image={photo ? photo : oreoImg}
           title={name}
         />
         <CardContent>
