@@ -18,7 +18,9 @@ class FlashMessage extends Component {
       <Dialog open={this.props.flashState}>
         <DialogContent>{text}</DialogContent>
         <DialogActions>
-          <Button onClick={this.handleClose}>Close</Button>
+          <Button color="primary" onClick={this.handleClose}>
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
     );
