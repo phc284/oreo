@@ -1,13 +1,14 @@
-import { combineReducers } from "redux";
-import { reducer as formReducer } from "redux-form";
+import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 
-import AddFormReducer from "./addform_reducer";
-import EditFormReducer from "./editform_reducer";
-import ErrorReducer from "./error_reducer";
-import OreosReducer from "./oreos_reducer";
-import HydrateReducer from "./hydrate_reducer";
-import DeleteReducer from "./delete_reducer";
-import NamesReducer from "./names_reducer";
+import AddFormReducer from './addform_reducer';
+import EditFormReducer from './editform_reducer';
+import ErrorReducer from './error_reducer';
+import OreosReducer from './oreos_reducer';
+import HydrateReducer from './hydrate_reducer';
+import DeleteReducer from './delete_reducer';
+import NamesReducer from './names_reducer';
+import FlashMessageReducer from './flashmessage_reducer';
 
 const rootReducer = combineReducers({
   // ...your other reducers here
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   addForm: AddFormReducer,
   editForm: EditFormReducer,
   deleteModal: DeleteReducer,
+  flashMessages: FlashMessageReducer,
   names: NamesReducer,
   hydrate: HydrateReducer,
   error: ErrorReducer,

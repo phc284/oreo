@@ -7,7 +7,12 @@ import Dialog, { DialogTitle } from 'material-ui/Dialog';
 
 import Form from '../components/Form';
 
-import { openAddform, closeAddform, getOreos } from '../actions';
+import {
+  openAddform,
+  closeAddform,
+  getOreos,
+  addFlashMessage
+} from '../actions';
 
 //validate input fields
 const validate = values => {
@@ -36,7 +41,7 @@ class AddForm extends Component {
   };
 
   //go back and connect to server later
-  onSubmit = async formValues => {
+  onSubmit = formValues => {
     const { name, description, photo, ...tags } = formValues;
     console.log(name, description, photo, tags);
     let formData = new FormData();
@@ -51,9 +56,14 @@ class AddForm extends Component {
         'Content-Type': 'multipart/form-data'
       }
     };
-    await axios.post(`/api/add/`, formData, options);
-    this.handleClose();
-    this.props.getOreos();
+    axios.post(`/api/add/`, formData, options).then(() => {
+      this.props.addFlashMessage({
+        type: 'success',
+        text: 'Successfully Added'
+      });
+      this.handleClose();
+      this.props.getOreos();
+    });
   };
 
   render() {
@@ -82,7 +92,10 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ openAddform, closeAddform, getOreos }, dispatch);
+  return bindActionCreators(
+    { openAddform, closeAddform, getOreos, addFlashMessage },
+    dispatch
+  );
 };
 
 //connect redux

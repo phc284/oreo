@@ -57,7 +57,14 @@ exports.createOreo = async (req, res) => {
         newBody.photo = result.secure_url;
         const oreo = await new Oreo(newBody).save();
         console.log(oreo);
-        res.send(oreo);
+        req.flash(
+          'success',
+          `Sucessfully Created ${oreo.name}. Care to leave a review?`
+        );
+
+        console.log(req.flash);
+
+        res.redirect(`/`);
       })
       .end(photo.buffer);
   }

@@ -7,7 +7,12 @@ import Dialog, { DialogTitle } from 'material-ui/Dialog';
 
 import Form from '../components/Form';
 
-import { openEditform, closeEditform, getOreos } from '../actions';
+import {
+  openEditform,
+  closeEditform,
+  getOreos,
+  addFlashMessage
+} from '../actions';
 
 //validate input fields
 const validate = values => {
@@ -55,13 +60,18 @@ class EditForm extends Component {
   };
 
   //go back and connect to server later
-  onSubmit = async formValues => {
+  onSubmit = formValues => {
     const id = this.props.hydrate.oreo._id;
 
     //make a success indicator
-    await axios.put(`/api/add/${id}`, formValues);
-    this.handleClose();
-    this.props.getOreos();
+    axios.put(`/api/add/${id}`, formValues).then(() => {
+      this.props.addFlashMessage({
+        type: 'success',
+        text: 'Succsefully Edited'
+      });
+      this.handleClose();
+      this.props.getOreos();
+    });
   };
 
   render() {
@@ -100,7 +110,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
-    { openEditform, closeEditform, getOreos },
+    { openEditform, closeEditform, getOreos, addFlashMessage },
     dispatch
   );
 };

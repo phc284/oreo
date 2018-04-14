@@ -14,7 +14,8 @@ const styles = {
   },
   ButtonGroup: {
     textAlign: 'center',
-    paddingTop: 15
+    paddingTop: 15,
+    paddingBottom: 15
   },
   deleteButton: {
     color: 'red'
@@ -37,7 +38,6 @@ const Oreo = ({
   id,
   hydrate
 }) => {
-  console.log(photo);
   return (
     <div className="oreo">
       <Card className={classes.card}>
@@ -45,7 +45,6 @@ const Oreo = ({
           <Button
             style={styles.deleteButton}
             onClick={() => {
-              console.log(id);
               openDelete(id);
             }}
           >

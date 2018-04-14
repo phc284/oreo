@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo')(session);
 const bodyParser = require('body-parser');
 const path = require('path');
+const passport = require('passport');
 
 const app = express();
 
@@ -34,6 +35,10 @@ app.use(
     store: new MongoStore({ mongooseConnection: mongoose.connection })
   })
 );
+
+// // Passport JS is what we use to handle our logins
+app.use(passport.initialize());
+app.use(passport.session());
 
 //use flash messages
 app.use(flash());

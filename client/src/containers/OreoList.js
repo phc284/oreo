@@ -1,18 +1,20 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import axios from "axios";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import axios from 'axios';
 
-import Oreo from "../components/Oreo";
-import DeleteModal from "../components/DeleteModal";
+import Oreo from '../components/Oreo';
+import DeleteModal from '../components/DeleteModal';
+import FlashMessage from './FlashMessage';
 import {
   getOreos,
   openEditform,
   closeEditform,
   hydrateForm,
   openDeleteModal,
-  closeDeleteModal
-} from "../actions";
+  closeDeleteModal,
+  addFlashMessage
+} from '../actions';
 
 class OreoList extends Component {
   componentDidMount() {
@@ -26,12 +28,18 @@ class OreoList extends Component {
   };
 
   handleDelete = id => {
-    axios.delete(`/api/delete/${id}`);
-    this.props.closeDeleteModal();
-    this.props.getOreos();
+    axios.delete(`/api/delete/${id}`).then(() => {
+      this.props.addFlashMessage({
+        type: 'success',
+        text: 'Succesfully Deleted Item'
+      });
+      this.props.closeDeleteModal();
+      this.props.getOreos();
+    });
   };
 
   render() {
+    console.log('oreolist', this.props);
     const { oreos } = this.props.oreos;
     return (
       <div className="oreo-list">
@@ -41,6 +49,7 @@ class OreoList extends Component {
           id={this.props.deleteModal.id}
           handleDelete={this.handleDelete}
         />
+        <FlashMessage />
         {oreos
           ? oreos.map(oreo => {
               return (
@@ -64,8 +73,14 @@ class OreoList extends Component {
   }
 }
 
-const mapStateToProps = ({ oreos, hydrate, editForm, deleteModal }) => {
-  return { oreos, hydrate, editForm, deleteModal };
+const mapStateToProps = ({
+  oreos,
+  hydrate,
+  editForm,
+  deleteModal,
+  flashMessages
+}) => {
+  return { oreos, hydrate, editForm, deleteModal, flashMessages };
 };
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
@@ -75,7 +90,8 @@ const mapDispatchToProps = dispatch => {
       closeEditform,
       hydrateForm,
       openDeleteModal,
-      closeDeleteModal
+      closeDeleteModal,
+      addFlashMessage
     },
     dispatch
   );
