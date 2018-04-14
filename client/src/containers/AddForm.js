@@ -27,6 +27,9 @@ const validate = values => {
 };
 
 class AddForm extends Component {
+  state = {
+    loading: false
+  };
   handleClose = () => {
     this.props.closeAddform();
     this.props.reset();
@@ -42,11 +45,15 @@ class AddForm extends Component {
 
   //go back and connect to server later
   onSubmit = formValues => {
+    this.setState({
+      loading: true
+    });
     const { name, description, photo, ...tags } = formValues;
-    console.log(name, description, photo, tags);
     let formData = new FormData();
 
-    formData.append('photo', photo.file);
+    if (photo) {
+      formData.append('photo', photo.file);
+    }
     formData.append('description', description);
     formData.append('name', name);
     formData.append('tags', tags);
@@ -57,6 +64,9 @@ class AddForm extends Component {
       }
     };
     axios.post(`/api/add/`, formData, options).then(() => {
+      this.setState({
+        loading: false
+      });
       this.props.addFlashMessage({
         type: 'success',
         text: 'Successfully Added'
@@ -80,6 +90,7 @@ class AddForm extends Component {
             handleSubmit={handleSubmit}
             onSubmitHandle={this.onSubmit}
             handleClose={this.handleClose}
+            loading={this.state.loading}
           />
         </Dialog>
       </div>

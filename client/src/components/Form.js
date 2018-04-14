@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'material-ui';
 import { DialogActions, DialogContent } from 'material-ui/Dialog';
 import { FormGroup } from 'material-ui/Form';
+import { LinearProgress } from 'material-ui/Progress';
 import { Field } from 'redux-form';
 
 import Check from '../components/Check';
@@ -43,6 +44,7 @@ const Form = props => {
             );
           })}
         </FormGroup>
+        {props.loading ? <LinearProgress /> : null}
       </DialogContent>
       <DialogActions>
         <Button onClick={props.handleClose} color="secondary">

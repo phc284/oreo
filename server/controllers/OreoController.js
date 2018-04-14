@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const uuid = require('uuid');
 const axios = require('axios');
-
 const cloudinary = require('cloudinary');
 
 const Oreo = mongoose.model('Oreo');
 
+// config for uploading photos to cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUDINARY_KEY,
@@ -15,14 +15,14 @@ cloudinary.config({
 
 const formatBody = body => {
   let { name, description, ...bodyTags } = body;
+
+  // remove beginning and trailing whitespace
   name = name.trim();
   description = description.trim();
 
-  // console.log(photo);
-
   let tags = [];
 
-  // if tag is removed from client, remove from list
+  // only use tags that are 'true'
 
   for (let key in bodyTags) {
     if (bodyTags[key] === true) {
@@ -40,14 +40,13 @@ const formatBody = body => {
 
 exports.createOreo = async (req, res) => {
   console.log('POST /add');
-  // console.log(req);
-  // console.log('req.body', req.body);
+
   const photo = req.files[0];
 
   const newBody = formatBody(req.body);
 
+  //if there is a photo, upload it to cloudinary and use ref link
   if (photo) {
-    // console.log('fileName', photo);
     const url = `https://api.cloudinary.com/v1_1/${
       process.env.CLOUDINARY_NAME
     }/upload`;
@@ -56,22 +55,13 @@ exports.createOreo = async (req, res) => {
       .upload_stream({ resource_type: 'raw' }, async function(error, result) {
         newBody.photo = result.secure_url;
         const oreo = await new Oreo(newBody).save();
-        console.log(oreo);
-        req.flash(
-          'success',
-          `Sucessfully Created ${oreo.name}. Care to leave a review?`
-        );
-
-        console.log(req.flash);
-
-        res.redirect(`/`);
+        res.send(oreo);
       })
       .end(photo.buffer);
+  } else {
+    const oreo = await new Oreo(newBody).save();
+    res.send(oreo);
   }
-
-  // create an array with the list of tags selected to add to model
-
-  // res.send(oreo);
 };
 
 exports.getOreos = async (req, res) => {
@@ -124,8 +114,8 @@ exports.updateOreo = async (req, res) => {
   const photo = req.files[0];
   const newBody = formatBody(req.body);
 
+  //if there is a new photo, upload it to cloudinary and use new ref link
   if (photo) {
-    // console.log('fileName', photo);
     const url = `https://api.cloudinary.com/v1_1/${
       process.env.CLOUDINARY_NAME
     }/upload`;
@@ -145,6 +135,7 @@ exports.updateOreo = async (req, res) => {
       })
       .end(photo.buffer);
   } else {
+    //if there is no new photo update everything else
     const oreo = await Oreo.findOneAndUpdate({ _id: req.params.id }, newBody, {
       new: true, // return new store instead of the old one
       runValidators: true

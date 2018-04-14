@@ -54,24 +54,31 @@ class EditForm extends Component {
     }
   }
 
+  state = {
+    loading: false
+  };
+
   handleClose = () => {
     this.props.closeEditform();
   };
 
   //go back and connect to server later
   onSubmit = formValues => {
+    // start progress circle
+    this.setState({
+      loading: true
+    });
     const id = this.props.hydrate.oreo._id;
 
     const { name, description, photo, ...tags } = formValues;
-    console.log(name, description, photo, tags);
     let formData = new FormData();
     if (photo) {
       formData.append('photo', photo.file);
     }
-
     formData.append('description', description);
     formData.append('name', name);
     formData.append('tags', tags);
+
     const options = {
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
@@ -79,11 +86,13 @@ class EditForm extends Component {
       }
     };
 
-    //make a success indicator
     axios.put(`/api/add/${id}`, formData, options).then(() => {
       this.props.addFlashMessage({
         type: 'success',
         text: 'Succsefully Edited'
+      });
+      this.setState({
+        loading: false
       });
       this.handleClose();
       this.props.getOreos();
@@ -103,6 +112,7 @@ class EditForm extends Component {
             handleSubmit={handleSubmit}
             onSubmitHandle={this.onSubmit}
             handleClose={this.handleClose}
+            loading={this.state.loading}
           />
         </Dialog>
       </div>
@@ -111,13 +121,6 @@ class EditForm extends Component {
 }
 
 const mapStateToProps = state => {
-  // const { oreo } = state.hydrate;
-  // if (oreo) {
-  //   var initialValues = {
-  //     name: oreo.name,
-  //     description: oreo.description
-  //   };
-  // }
   return {
     editForm: state.editForm,
     hydrate: state.hydrate
