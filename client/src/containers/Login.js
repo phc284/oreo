@@ -68,7 +68,9 @@ class Login extends Component {
           >
             Close
           </Button>
-          <Button color="primary">Login</Button>
+          <Button color="primary" type="submit">
+            Login
+          </Button>
         </DialogActions>
       </Dialog>
     );

@@ -5,6 +5,8 @@ const router = express.Router();
 
 const { catchErrors } = require('../handlers/error_handlers');
 const oreoController = require('../controllers/OreoController');
+const userController = require('../controllers/UserController');
+const authController = require('../controllers/AuthController');
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
@@ -18,6 +20,11 @@ router.get('/search/:query', catchErrors(oreoController.getSearchedOreos));
 router.get('/names', catchErrors(oreoController.getNames));
 
 router.post('/add', upload.any(), catchErrors(oreoController.createOreo));
+router.post(
+  '/signup',
+  userController.validateSignup,
+  catchErrors(userController.register)
+);
 router.put('/add/:id', upload.any(), catchErrors(oreoController.updateOreo));
 
 router.delete('/delete/:id', catchErrors(oreoController.deleteOreo));

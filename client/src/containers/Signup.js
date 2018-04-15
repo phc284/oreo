@@ -16,7 +16,7 @@ import AddFormInput from '../components/AddFormInput';
 //validate input fields
 const validate = values => {
   const errors = {};
-  const requiredFields = ['username', 'password', 'confirm-password'];
+  const requiredFields = ['username', 'email', 'password', 'confirm-password'];
   requiredFields.forEach(field => {
     if (!values[field]) {
       errors[field] = 'Required';
@@ -25,62 +25,75 @@ const validate = values => {
   if (values['confirm-password'] !== values['password']) {
     errors['confirm-password'] = 'Passwords do not match';
   }
+
   return errors;
 };
 
 class Signup extends Component {
   handleSubmit = formValues => {
     console.log('LOGIN FORM VALUES', formValues);
+    axios.post('/api/signup', formValues);
   };
 
   render() {
     return (
-      <Dialog
-        open={this.props.isOpen}
-        onClose={() => {
-          this.props.handleClose('signup');
-          this.props.reset();
-        }}
-      >
-        <DialogTitle>SIGNUP</DialogTitle>
-        <DialogContent>
+      <div>
+        <Dialog
+          open={this.props.isOpen}
+          onClose={() => {
+            this.props.handleClose('signup');
+            this.props.reset();
+          }}
+        >
+          <DialogTitle>SIGNUP</DialogTitle>
           <form onSubmit={this.props.handleSubmit(this.handleSubmit)}>
-            <Field
-              name="username"
-              component={AddFormInput}
-              type="text"
-              fieldName="username"
-              fieldLabel="Enter a Username"
-            />
-            <Field
-              name="password"
-              component={AddFormInput}
-              type="text"
-              fieldName="password"
-              fieldLabel="Enter A Password"
-            />
-            <Field
-              name="confirm-password"
-              component={AddFormInput}
-              type="text"
-              fieldName="confirm-password"
-              fieldLabel="Confirm Password"
-            />
+            <DialogContent>
+              <Field
+                name="username"
+                component={AddFormInput}
+                type="text"
+                fieldName="username"
+                fieldLabel="Enter a Username"
+              />
+              <Field
+                name="email"
+                component={AddFormInput}
+                type="text"
+                fieldName="email"
+                fieldLabel="Enter an Email"
+              />
+              <Field
+                name="password"
+                component={AddFormInput}
+                type="text"
+                fieldName="password"
+                fieldLabel="Enter A Password"
+              />
+              <Field
+                name="confirm-password"
+                component={AddFormInput}
+                type="text"
+                fieldName="confirm-password"
+                fieldLabel="Confirm Password"
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button
+                color="secondary"
+                onClick={() => {
+                  this.props.handleClose('signup');
+                  this.props.reset();
+                }}
+              >
+                Close
+              </Button>
+              <Button color="primary" type="submit">
+                Signup
+              </Button>
+            </DialogActions>
           </form>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            color="secondary"
-            onClick={() => {
-              this.props.handleClose('signup');
-              this.props.reset();
-            }}
-          >
-            Close
-          </Button>
-          <Button color="primary">Login</Button>
-        </DialogActions>
-      </Dialog>
+        </Dialog>
+      </div>
     );
   }
 }
