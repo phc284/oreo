@@ -24,9 +24,6 @@ const AddFormInput = ({
     rows = 2;
   }
 
-  //set name and desc values based on fieldName
-  // let defaultValue = custom[`${fieldName}Val`];
-
   return (
     <TextField
       margin="dense"

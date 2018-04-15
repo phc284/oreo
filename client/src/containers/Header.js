@@ -12,6 +12,8 @@ import { openAddform, closeAddform } from '../actions';
 
 import AddForm from './AddForm';
 import EditForm from './EditForm';
+import Login from './Login';
+import Signup from './Signup';
 
 const styles = {
   Typography: {
@@ -31,8 +33,12 @@ const styles = {
     backgroundColor: '#4ccaf4',
     boxShadow: 'none'
   },
-  Button: {
-    backgroundColor: 'green',
+  login: {
+    backgroundColor: '#526CF4',
+    marginLeft: 15
+  },
+  signup: {
+    backgroundColor: '#FFA23E',
     marginLeft: 15
   },
   buttons: {
@@ -41,9 +47,27 @@ const styles = {
 };
 
 class Header extends Component {
+  state = {
+    loginOpen: false,
+    signupOpen: false
+  };
   handleOpenAdd = () => {
     this.props.openAddform();
   };
+
+  handleClose = form => {
+    const key = `${form}Open`;
+    this.setState({
+      [key]: false
+    });
+  };
+  handleOpen = form => {
+    const key = `${form}Open`;
+    this.setState({
+      [key]: true
+    });
+  };
+
   render() {
     const { classes } = this.props;
     const containerClass = `header ${classes.root}`;
@@ -60,10 +84,33 @@ class Header extends Component {
               <div style={styles.buttons}>
                 <AddForm />
                 <EditForm />
+                <Login
+                  isOpen={this.state.loginOpen}
+                  handleClose={this.handleClose}
+                />
+                <Signup
+                  isOpen={this.state.signupOpen}
+                  handleClose={this.handleClose}
+                />
                 <Button variant="raised" onClick={this.handleOpenAdd}>
                   Add a cookie
                 </Button>
-                <Button variant="raised" style={styles.Button}>
+                <Button
+                  variant="raised"
+                  style={styles.signup}
+                  onClick={() => {
+                    this.handleOpen('signup');
+                  }}
+                >
+                  Signup
+                </Button>
+                <Button
+                  variant="raised"
+                  style={styles.login}
+                  onClick={() => {
+                    this.handleOpen('login');
+                  }}
+                >
                   Login
                 </Button>
               </div>
