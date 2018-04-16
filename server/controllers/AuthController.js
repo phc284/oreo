@@ -8,7 +8,14 @@ exports.login = (req, res) => {
       res.status(401).send({ err });
     }
     req.session.user = user._id;
-    res.send(req.session.user);
+    const { _id: id, username, email, favorites } = user;
+    const sendUser = {
+      id,
+      username,
+      email,
+      favorites
+    };
+    res.send(sendUser);
   })(req, res);
 };
 

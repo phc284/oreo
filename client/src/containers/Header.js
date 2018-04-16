@@ -104,15 +104,19 @@ class Header extends Component {
                 <Button variant="raised" onClick={this.handleOpenAdd}>
                   Add a cookie
                 </Button>
-                <Button
-                  variant="raised"
-                  style={styles.signup}
-                  onClick={() => {
-                    this.handleOpen('signup');
-                  }}
-                >
-                  Signup
-                </Button>
+                {this.props.user ? (
+                  <Button disabled>Welcome Back</Button>
+                ) : (
+                  <Button
+                    variant="raised"
+                    style={styles.signup}
+                    onClick={() => {
+                      this.handleOpen('signup');
+                    }}
+                  >
+                    Signup
+                  </Button>
+                )}
                 {this.props.user ? (
                   <Button
                     variant="raised"
