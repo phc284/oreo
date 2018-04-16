@@ -4,11 +4,12 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
-import { openAddform, closeAddform } from '../actions';
+import { openAddform, closeAddform, logout } from '../actions';
 
 import AddForm from './AddForm';
 import EditForm from './EditForm';
@@ -61,10 +62,17 @@ class Header extends Component {
       [key]: false
     });
   };
+
   handleOpen = form => {
     const key = `${form}Open`;
     this.setState({
       [key]: true
+    });
+  };
+
+  handleLogout = () => {
+    axios.get('/api/logout').then(data => {
+      this.props.logout();
     });
   };
 
@@ -88,12 +96,10 @@ class Header extends Component {
                 <Login
                   isOpen={this.state.loginOpen}
                   handleClose={this.handleClose}
-                  handleLogin={this.props.handleLogin}
                 />
                 <Signup
                   isOpen={this.state.signupOpen}
                   handleClose={this.handleClose}
-                  handleLogin={this.props.handleLogin}
                 />
                 <Button variant="raised" onClick={this.handleOpenAdd}>
                   Add a cookie
@@ -107,15 +113,25 @@ class Header extends Component {
                 >
                   Signup
                 </Button>
-                <Button
-                  variant="raised"
-                  style={styles.login}
-                  onClick={() => {
-                    this.handleOpen('login');
-                  }}
-                >
-                  Login
-                </Button>
+                {this.props.user ? (
+                  <Button
+                    variant="raised"
+                    style={styles.login}
+                    onClick={this.handleLogout}
+                  >
+                    Logout
+                  </Button>
+                ) : (
+                  <Button
+                    variant="raised"
+                    style={styles.login}
+                    onClick={() => {
+                      this.handleOpen('login');
+                    }}
+                  >
+                    Login
+                  </Button>
+                )}
               </div>
             ) : null}
           </Toolbar>
@@ -126,11 +142,14 @@ class Header extends Component {
 }
 
 const mapStateToProps = state => {
-  return { addForm: state.addForm, hydrate: state.hydrate };
+  return {
+    hydrate: state.hydrate,
+    user: state.login.user
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ openAddform, closeAddform }, dispatch);
+  return bindActionCreators({ openAddform, closeAddform, logout }, dispatch);
 };
 
 //connect redux

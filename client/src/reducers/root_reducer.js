@@ -9,6 +9,7 @@ import HydrateReducer from './hydrate_reducer';
 import DeleteReducer from './delete_reducer';
 import NamesReducer from './names_reducer';
 import FlashMessageReducer from './flashmessage_reducer';
+import LoginReducer from './login_reducer';
 
 const rootReducer = combineReducers({
   // ...your other reducers here
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   deleteModal: DeleteReducer,
   flashMessages: FlashMessageReducer,
   names: NamesReducer,
+  login: LoginReducer,
   hydrate: HydrateReducer,
   error: ErrorReducer,
   oreos: OreosReducer,

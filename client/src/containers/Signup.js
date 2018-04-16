@@ -11,6 +11,8 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { login } from '../actions';
+
 import AddFormInput from '../components/AddFormInput';
 
 //validate input fields
@@ -32,11 +34,14 @@ const validate = values => {
 class Signup extends Component {
   handleSubmit = formValues => {
     console.log('LOGIN FORM VALUES', formValues);
+
     axios
       .post('/api/signup', formValues)
       .then(data => {
-        console.log('success', data);
         const user = data.data;
+        this.props.login(user);
+        this.props.handleClose('signup');
+        this.props.reset;
       })
       .catch(err => {
         console.log('err', err);
@@ -106,6 +111,13 @@ class Signup extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return { user: state.login.user };
+};
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ login }, dispatch);
+};
+
 Signup = reduxForm({
   form: 'SignupForm',
   validate,
@@ -114,4 +126,4 @@ Signup = reduxForm({
   }
 })(Signup);
 
-export default connect()(Signup);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

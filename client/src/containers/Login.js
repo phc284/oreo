@@ -13,6 +13,8 @@ import { bindActionCreators } from 'redux';
 
 import AddFormInput from '../components/AddFormInput';
 
+import { login, addFlashMessage } from '../actions';
+
 //validate input fields
 const validate = values => {
   const errors = {};
@@ -26,8 +28,27 @@ const validate = values => {
 };
 
 class Login extends Component {
+  state = {
+    error: false
+  };
   handleSubmit = formValues => {
     console.log('LOGIN FORM VALUES', formValues);
+    axios.post('/api/login', formValues).then(data => {
+      console.log('data', data);
+      if (!data.data) {
+        this.setState({
+          error: true
+        });
+      } else {
+        this.setState({
+          error: false
+        });
+        const user = data.data;
+        this.props.login(user);
+        this.props.handleClose('login');
+        this.props.reset();
+      }
+    });
   };
 
   render() {
@@ -40,8 +61,8 @@ class Login extends Component {
         }}
       >
         <DialogTitle>LOGIN</DialogTitle>
-        <DialogContent>
-          <form onSubmit={this.props.handleSubmit(this.handleSubmit)}>
+        <form onSubmit={this.props.handleSubmit(this.handleSubmit)}>
+          <DialogContent>
             <Field
               name="username"
               component={AddFormInput}
@@ -56,26 +77,31 @@ class Login extends Component {
               fieldName="password"
               fieldLabel="Password"
             />
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            color="secondary"
-            onClick={() => {
-              this.props.handleClose('login');
-              this.props.reset();
-            }}
-          >
-            Close
-          </Button>
-          <Button color="primary" type="submit">
-            Login
-          </Button>
-        </DialogActions>
+            {this.state.error && <div>Incorrect username or password</div>}
+          </DialogContent>
+          <DialogActions>
+            <Button
+              color="secondary"
+              onClick={() => {
+                this.props.handleClose('login');
+                this.props.reset();
+              }}
+            >
+              Close
+            </Button>
+            <Button color="primary" type="submit">
+              Login
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ login, addFlashMessage }, dispatch);
+};
 
 Login = reduxForm({
   form: 'LoginForm',
@@ -85,4 +111,4 @@ Login = reduxForm({
   }
 })(Login);
 
-export default connect()(Login);
+export default connect(null, mapDispatchToProps)(Login);

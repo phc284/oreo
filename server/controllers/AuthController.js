@@ -7,14 +7,13 @@ exports.login = (req, res) => {
     if (err) {
       res.status(401).send({ err });
     }
-    console.log('BLAH', user);
     req.session.user = user._id;
-    console.log(req.session);
-    res.send(user);
+    res.send(req.session.user);
   })(req, res);
 };
 
 exports.logout = (req, res) => {
+  delete req.session.user;
   req.logout();
   res.send({ status: 'success' });
 };

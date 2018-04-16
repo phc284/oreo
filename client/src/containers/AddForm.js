@@ -81,10 +81,7 @@ class AddForm extends Component {
 
     return (
       <div>
-        <Dialog
-          open={this.props.addForm.addForm || false}
-          onClose={this.handleClose}
-        >
+        <Dialog open={this.props.addForm || false} onClose={this.handleClose}>
           <DialogTitle id="form-dialog-title">Submit An Oreo</DialogTitle>
           <Form
             handleSubmit={handleSubmit}
@@ -99,7 +96,11 @@ class AddForm extends Component {
 }
 
 const mapStateToProps = state => {
-  return { addForm: state.addForm, error: state.error, hydrate: state.hydrate };
+  return {
+    addForm: state.addForm.addForm,
+    error: state.error,
+    hydrate: state.hydrate
+  };
 };
 
 const mapDispatchToProps = dispatch => {

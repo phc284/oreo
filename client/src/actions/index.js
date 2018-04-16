@@ -13,6 +13,8 @@ export const HYDRATE_FORM = 'HYDRATE_FORM';
 export const GET_NAMES = 'GET_NAMES';
 export const ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
 export const RESET_FLASH_MESSAGE = 'RESET_FLASH_MESSAGE';
+export const LOGIN_USER = 'LOGIN_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';
 
 export const closeAddform = () => {
   return {
@@ -105,5 +107,17 @@ export const addFlashMessage = message => {
 export const resetFlashMessage = () => {
   return {
     type: RESET_FLASH_MESSAGE
+  };
+};
+
+export const login = user => {
+  return {
+    type: LOGIN_USER,
+    user
+  };
+};
+export const logout = () => {
+  return {
+    type: LOGOUT_USER
   };
 };
