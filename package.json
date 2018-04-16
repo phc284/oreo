@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
-    "bootstrap": "^4.0.0",
     "cloudinary": "^1.11.0",
     "concurrently": "^3.5.1",
     "connect-flash": "^0.1.1",
@@ -13,19 +13,17 @@
     "cookie-parser": "^1.4.3",
     "dompurify": "^1.0.3",
     "dotenv": "^5.0.1",
-    "es6-promisify": "^6.0.0",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "express-validator": "^5.1.1",
-    "form-data": "^2.3.2",
-    "jimp": "^0.2.28",
-    "jsdom": "^11.7.0",
     "mongodb": "^3.0.5",
     "mongoose": "^5.0.12",
     "mongoose-mongodb-errors": "0.0.2",
     "multer": "^1.3.0",
     "nodemon": "^1.17.2",
     "passport": "^0.4.0",
+    "passport-http": "^0.3.0",
+    "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.0",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
@@ -33,17 +31,15 @@
     "uuid": "^3.2.1",
     "validator": "^9.4.1"
   },
-  "cacheDirectories": [
-    "node_modules",
-    "client/node_modules"
-  ],
+  "cacheDirectories": ["node_modules", "client/node_modules"],
   "scripts": {
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "client": "cd client && npm start",
-    "start": "cd server && nodemon index.js",
-    "server": "cd server && nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "start":
+      "concurrently \"cd server && nodemon index.js\" \"cd client && npm start\"",
+    "build":
+      "cd client && npm install --only=dev && npm install && npm run build",
+    "heroku-postbuild":
+      "cd client && npm install --only=dev && npm install && npm run build",
+    "setup": "npm install && cd client && npm install"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^16.1.0",

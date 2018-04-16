@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
-import { BrowserRouter } from "react-router-dom";
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-import Homepage from "../components/Homepage";
-import OreoPage from "./OreoPage";
+import Homepage from '../components/Homepage';
+import OreoPage from './OreoPage';
 
 class App extends Component {
   render() {

@@ -32,7 +32,15 @@ const validate = values => {
 class Signup extends Component {
   handleSubmit = formValues => {
     console.log('LOGIN FORM VALUES', formValues);
-    axios.post('/api/signup', formValues);
+    axios
+      .post('/api/signup', formValues)
+      .then(data => {
+        console.log('success', data);
+        const user = data.data;
+      })
+      .catch(err => {
+        console.log('err', err);
+      });
   };
 
   render() {

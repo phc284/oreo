@@ -71,6 +71,7 @@ class Header extends Component {
   render() {
     const { classes } = this.props;
     const containerClass = `header ${classes.root}`;
+    console.log('geader', this.props);
     return (
       <div className={containerClass}>
         <AppBar position="static" style={styles.AppBar}>
@@ -87,10 +88,12 @@ class Header extends Component {
                 <Login
                   isOpen={this.state.loginOpen}
                   handleClose={this.handleClose}
+                  handleLogin={this.props.handleLogin}
                 />
                 <Signup
                   isOpen={this.state.signupOpen}
                   handleClose={this.handleClose}
+                  handleLogin={this.props.handleLogin}
                 />
                 <Button variant="raised" onClick={this.handleOpenAdd}>
                   Add a cookie
