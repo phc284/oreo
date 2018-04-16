@@ -24,8 +24,14 @@ const AddFormInput = ({
     rows = 2;
   }
 
+  let type =
+    fieldName === 'password' || fieldName === 'confirm-password'
+      ? 'password'
+      : 'text';
+
   return (
     <TextField
+      type={type}
       margin="dense"
       fullWidth
       multiline={multi}
