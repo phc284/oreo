@@ -38,7 +38,8 @@ const Oreo = ({
   openDelete,
   id,
   hydrate,
-  checked
+  checked,
+  user
 }) => {
   setTimeout(() => {
     checked = false;
@@ -47,24 +48,26 @@ const Oreo = ({
     <div className="oreo">
       <Grow in={checked}>
         <Card className={classes.card}>
-          <div className={classes.ButtonGroup}>
-            <Button
-              style={styles.deleteButton}
-              onClick={() => {
-                openDelete(id);
-              }}
-            >
-              <i className="material-icons">delete</i>
-            </Button>
-            <Button
-              style={styles.editButton}
-              onClick={() => {
-                handleEdit(id);
-              }}
-            >
-              <i className="material-icons">edit</i>
-            </Button>
-          </div>
+          {user && (
+            <div className={classes.ButtonGroup}>
+              <Button
+                style={styles.deleteButton}
+                onClick={() => {
+                  openDelete(id);
+                }}
+              >
+                <i className="material-icons">delete</i>
+              </Button>
+              <Button
+                style={styles.editButton}
+                onClick={() => {
+                  handleEdit(id);
+                }}
+              >
+                <i className="material-icons">edit</i>
+              </Button>
+            </div>
+          )}
           <CardMedia
             className={classes.media}
             image={photo ? photo : oreoImg}

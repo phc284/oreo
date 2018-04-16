@@ -45,6 +45,7 @@ class OreoList extends Component {
   };
 
   render() {
+    console.log(this.props);
     const { oreos } = this.props.oreos;
     return (
       <div className="oreo-list">
@@ -70,6 +71,7 @@ class OreoList extends Component {
                   openDelete={this.props.openDeleteModal}
                   hydrate={this.props.hydrateForm}
                   checked={this.state.checked}
+                  user={this.props.user}
                 />
               );
             })
@@ -84,9 +86,18 @@ const mapStateToProps = ({
   hydrate,
   editForm,
   deleteModal,
-  flashMessages
+  flashMessages,
+  ...other
 }) => {
-  return { oreos, hydrate, editForm, deleteModal, flashMessages };
+  console.log('user', other);
+  return {
+    oreos,
+    hydrate,
+    editForm,
+    deleteModal,
+    flashMessages,
+    user: other.login.user
+  };
 };
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(

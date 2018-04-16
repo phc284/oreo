@@ -42,6 +42,10 @@ const styles = {
     backgroundColor: '#FFA23E',
     marginLeft: 15
   },
+  user: {
+    backgroundColor: '#FFFFFF',
+    marginLeft: 15
+  },
   buttons: {
     alignItems: 'flex-end'
   }
@@ -102,10 +106,12 @@ class Header extends Component {
                   handleClose={this.handleClose}
                 />
                 <Button variant="raised" onClick={this.handleOpenAdd}>
-                  Add a cookie
+                  Request an Oreo
                 </Button>
                 {this.props.user ? (
-                  <Button disabled>Welcome Back</Button>
+                  <Button variant="raised" style={styles.user}>
+                    Hello, {this.props.user.username}
+                  </Button>
                 ) : (
                   <Button
                     variant="raised"

@@ -1,19 +1,19 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600");
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600');
 
 body {
   margin: 0;
   padding: 0;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   background: #4ccaf4;
 }
 
 .App {
   display: grid;
   grid-template-areas:
-    "header header header header header"
-    ". search search search ."
-    "list list list list filter"
-    "footer footer footer footer footer";
+    'header header header header header'
+    '. search search search .'
+    'list list list list filter'
+    'footer footer footer footer footer';
   grid-column-gap: 12px;
 }
 
@@ -73,11 +73,11 @@ body {
 @media (max-width: 768px) {
   .App {
     grid-template-areas:
-      "header header "
-      "filter filter"
-      "search search "
-      "list list"
-      "footer footer ";
+      'header header '
+      'filter filter'
+      'search search '
+      'list list'
+      'footer footer ';
   }
 
   .filter {
