@@ -35,10 +35,16 @@ class Login extends Component {
     console.log('LOGIN FORM VALUES', formValues);
     axios.post('/api/login', formValues).then(data => {
       console.log('data', data);
-      if (!data.data) {
+      if (data.data.error) {
         this.setState({
           error: true
         });
+
+        setTimeout(() => {
+          this.setState({
+            error: false
+          });
+        }, 2000);
       } else {
         this.setState({
           error: false
@@ -77,7 +83,9 @@ class Login extends Component {
               fieldName="password"
               fieldLabel="Password"
             />
-            {this.state.error && <div>Incorrect username or password</div>}
+            {this.state.error && (
+              <div className="error-text">Incorrect username or password</div>
+            )}
           </DialogContent>
           <DialogActions>
             <Button

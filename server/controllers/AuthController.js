@@ -3,19 +3,24 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 exports.login = (req, res) => {
-  passport.authenticate('local', (err, user) => {
+  passport.authenticate('local', async (err, user) => {
+    console.log('authenticate', err);
     if (err) {
+      console.log('err', err);
       res.status(401).send({ err });
+    } else {
+      req.session.user = user._id;
+      const sendUser = await User.findOne({
+        username: user.username,
+        email: user.email
+      });
+
+      if (sendUser === null) {
+        res.send({ error: true });
+      } else {
+        res.send(sendUser);
+      }
     }
-    req.session.user = user._id;
-    const { _id: id, username, email, favorites } = user;
-    const sendUser = {
-      id,
-      username,
-      email,
-      favorites
-    };
-    res.send(sendUser);
   })(req, res);
 };
 
