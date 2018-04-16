@@ -3,3 +3,5 @@ package-lock.json
 /server/variables.env
 
 .eslintrc.js
+
+.DS_Store
