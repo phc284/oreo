@@ -23,7 +23,8 @@ const styles = {
     fontWeight: 'bold'
   },
   Link: {
-    flex: 1
+    flex: 1,
+    textDecoration: 'none'
   },
   root: {
     flexGrow: 2,
@@ -93,57 +94,56 @@ class Header extends Component {
                 ratemyoreo
               </Typography>
             </Link>
-            {this.props.page ? (
-              <div style={styles.buttons}>
-                <AddForm />
-                <EditForm />
-                <Login
-                  isOpen={this.state.loginOpen}
-                  handleClose={this.handleClose}
-                />
-                <Signup
-                  isOpen={this.state.signupOpen}
-                  handleClose={this.handleClose}
-                />
-                <Button variant="raised" onClick={this.handleOpenAdd}>
-                  Request an Oreo
+
+            <div style={styles.buttons}>
+              <AddForm />
+              <EditForm />
+              <Login
+                isOpen={this.state.loginOpen}
+                handleClose={this.handleClose}
+              />
+              <Signup
+                isOpen={this.state.signupOpen}
+                handleClose={this.handleClose}
+              />
+              <Button variant="raised" onClick={this.handleOpenAdd}>
+                Request an Oreo
+              </Button>
+              {this.props.user ? (
+                <Button variant="raised" style={styles.user}>
+                  Hello, {this.props.user.username}
                 </Button>
-                {this.props.user ? (
-                  <Button variant="raised" style={styles.user}>
-                    Hello, {this.props.user.username}
-                  </Button>
-                ) : (
-                  <Button
-                    variant="raised"
-                    style={styles.signup}
-                    onClick={() => {
-                      this.handleOpen('signup');
-                    }}
-                  >
-                    Signup
-                  </Button>
-                )}
-                {this.props.user ? (
-                  <Button
-                    variant="raised"
-                    style={styles.login}
-                    onClick={this.handleLogout}
-                  >
-                    Logout
-                  </Button>
-                ) : (
-                  <Button
-                    variant="raised"
-                    style={styles.login}
-                    onClick={() => {
-                      this.handleOpen('login');
-                    }}
-                  >
-                    Login
-                  </Button>
-                )}
-              </div>
-            ) : null}
+              ) : (
+                <Button
+                  variant="raised"
+                  style={styles.signup}
+                  onClick={() => {
+                    this.handleOpen('signup');
+                  }}
+                >
+                  Signup
+                </Button>
+              )}
+              {this.props.user ? (
+                <Button
+                  variant="raised"
+                  style={styles.login}
+                  onClick={this.handleLogout}
+                >
+                  Logout
+                </Button>
+              ) : (
+                <Button
+                  variant="raised"
+                  style={styles.login}
+                  onClick={() => {
+                    this.handleOpen('login');
+                  }}
+                >
+                  Login
+                </Button>
+              )}
+            </div>
           </Toolbar>
         </AppBar>
       </div>
