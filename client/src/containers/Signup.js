@@ -19,6 +19,10 @@ import AddFormInput from '../components/AddFormInput';
 const validate = values => {
   const errors = {};
   const requiredFields = ['username', 'email', 'password', 'confirm-password'];
+  const regex = new RegExp(
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  );
+
   requiredFields.forEach(field => {
     if (!values[field]) {
       errors[field] = 'Required';
@@ -26,6 +30,9 @@ const validate = values => {
   });
   if (values['confirm-password'] !== values['password']) {
     errors['confirm-password'] = 'Passwords do not match';
+  }
+  if (!regex.test(values['email'])) {
+    errors['email'] = 'Invalid Email';
   }
 
   return errors;
