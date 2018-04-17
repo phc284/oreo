@@ -15,6 +15,7 @@ import reducers from './reducers/root_reducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+//persist user is refresh or page change until logout
 const persistConfig = {
   key: 'auth',
   storage,
