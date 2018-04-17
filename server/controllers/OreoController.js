@@ -14,8 +14,9 @@ cloudinary.config({
 });
 
 const formatBody = body => {
-  let { name, description, ...bodyTags } = body;
-
+  let { name, description, tags: bodyTags } = body;
+  console.log(body);
+  bodyTags = JSON.parse(bodyTags);
   // remove beginning and trailing whitespace
   name = name.trim();
   description = description.trim();
@@ -25,6 +26,7 @@ const formatBody = body => {
   // only use tags that are 'true'
 
   for (let key in bodyTags) {
+    console.log('key', key);
     if (bodyTags[key] === true) {
       tags = [...tags, [key]];
     }
@@ -108,8 +110,6 @@ exports.editOreo = async (req, res) => {
 
 exports.updateOreo = async (req, res) => {
   console.log('PUT /add/:id');
-
-  console.log(req.files);
 
   const photo = req.files[0];
   const newBody = formatBody(req.body);

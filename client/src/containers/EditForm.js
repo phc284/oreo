@@ -35,14 +35,17 @@ const initializeTags = tags => {
 class EditForm extends Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
     const { hydrate } = this.props;
-    //if not first time edit button pressed (there are prev props)
+    // if not first time edit button pressed (there are prev props)
     if (prevProps.hydrate.oreo) {
-      if (prevProps.hydrate.oreo.name !== hydrate.oreo.name) {
-        this.props.initialize({
-          name: hydrate.oreo.name,
-          description: hydrate.oreo.name,
-          ...initializeTags(hydrate.oreo.tags)
-        });
+      // check if any properties have changed
+      for (let key in hydrate.oreo) {
+        if (hydrate.oreo[key] !== prevProps.hydrate.oreo[key]) {
+          this.props.initialize({
+            name: hydrate.oreo.name,
+            description: hydrate.oreo.name,
+            ...initializeTags(hydrate.oreo.tags)
+          });
+        }
       }
     } else if (this.props.hydrate.oreo) {
       //else if its first time
@@ -77,7 +80,7 @@ class EditForm extends Component {
     }
     formData.append('description', description);
     formData.append('name', name);
-    formData.append('tags', tags);
+    formData.append('tags', JSON.stringify(tags));
 
     const options = {
       headers: {
@@ -95,6 +98,7 @@ class EditForm extends Component {
         loading: false
       });
       this.handleClose();
+      this.props.reset();
       this.props.getOreos();
     });
   };
