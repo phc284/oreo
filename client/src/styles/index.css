@@ -11,8 +11,8 @@ body {
   display: grid;
   grid-template-areas:
     'header header header header header'
-    '. search search search .'
-    'list list list list filter'
+    'filter search search search .'
+    'list list list list list'
     'footer footer footer footer footer';
   grid-column-gap: 12px;
 }
@@ -45,23 +45,20 @@ body {
   height: auto;
 }
 
-.filter {
+.filter-container {
   grid-area: filter;
-  width: 250px;
-  background: white;
-  height: 600px;
-  margin-top: 25px;
   justify-self: center;
-  max-width: 300px;
-  text-align: center;
 }
 
-.filter h2 {
-  margin-top: 15%;
-  font-weight: 600;
+.filter {
+  background: white;
+  text-align: center;
+  max-height: 65px;
+  max-width: 200px;
 }
-.filter fieldset {
-  margin-top: 15px;
+
+.filter-details {
+  background-color: white;
 }
 
 .footer {
@@ -84,12 +81,12 @@ body {
       'footer footer ';
   }
 
-  .filter {
-    height: 250px;
-    width: 75%;
+  .filter-container {
+    grid-area: filter;
   }
 
   .searchbar {
+    margin-top: 15px;
     width: 90%;
     justify-self: center;
   }

@@ -33,11 +33,15 @@ exports.validateSignup = (req, res, next) => {
 exports.register = (req, res, next) => {
   let { username, email, password } = req.body;
   //register user
-  User.register(new User({ username, email }), password, (err, user) => {
-    if (err) {
-      res.send({ Error: err.message });
+  User.register(
+    new User({ username, email, admin: false }),
+    password,
+    (err, user) => {
+      if (err) {
+        res.send({ Error: err.message });
+      }
+      console.log('next');
+      next();
     }
-    console.log('next');
-    next();
-  });
+  );
 };

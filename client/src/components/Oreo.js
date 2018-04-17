@@ -48,26 +48,28 @@ const Oreo = ({
     <div className="oreo">
       <Grow in={checked}>
         <Card className={classes.card}>
-          {user && (
-            <div className={classes.ButtonGroup}>
-              <Button
-                style={styles.deleteButton}
-                onClick={() => {
-                  openDelete(id);
-                }}
-              >
-                <i className="material-icons">delete</i>
-              </Button>
-              <Button
-                style={styles.editButton}
-                onClick={() => {
-                  handleEdit(id);
-                }}
-              >
-                <i className="material-icons">edit</i>
-              </Button>
-            </div>
-          )}
+          {/* Check to see if there is a user and if user is an admin*/}
+          {user &&
+            user.admin && (
+              <div className={classes.ButtonGroup}>
+                <Button
+                  style={styles.deleteButton}
+                  onClick={() => {
+                    openDelete(id);
+                  }}
+                >
+                  <i className="material-icons">delete</i>
+                </Button>
+                <Button
+                  style={styles.editButton}
+                  onClick={() => {
+                    handleEdit(id);
+                  }}
+                >
+                  <i className="material-icons">edit</i>
+                </Button>
+              </div>
+            )}
           <CardMedia
             className={classes.media}
             image={photo ? photo : oreoImg}

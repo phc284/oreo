@@ -1,20 +1,35 @@
-.oreo-page {
+#page {
+}
+
+#oreo-content {
   display: grid;
   grid-row-gap: 20px;
-  font-size: 40px;
   grid-template-areas:
-    'header header header'
     'picture info info'
     'reviews reviews reviews';
+  margin: 0 5% 5% 5%;
 }
 
 .info {
   grid-area: info;
+  padding-left: 15px;
+  font-size: 36px;
 }
 
 .review-list {
   grid-area: reviews;
   height: 600px;
   width: 100%;
-  background-color: white;
+  /* background-color: white; */
+  /* overflow: scroll; */
+}
+
+.review {
+  height: 200px;
+  padding: 10px;
+  border: 1px dashed black;
+  display: flex;
+  flex-flow: column wrap;
+  margin-top: 10px;
+  background-color: aliceblue;
 }

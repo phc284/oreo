@@ -82,9 +82,8 @@ class Header extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, user } = this.props;
     const containerClass = `header ${classes.root}`;
-    console.log('geader', this.props);
     return (
       <div className={containerClass}>
         <AppBar position="static" style={styles.AppBar}>
@@ -106,9 +105,12 @@ class Header extends Component {
                 isOpen={this.state.signupOpen}
                 handleClose={this.handleClose}
               />
-              <Button variant="raised" onClick={this.handleOpenAdd}>
-                Request an Oreo
-              </Button>
+              {user &&
+                user.admin && (
+                  <Button variant="raised" onClick={this.handleOpenAdd}>
+                    Request an Oreo
+                  </Button>
+                )}
               {this.props.user ? (
                 <Button variant="raised" style={styles.user}>
                   Hello, {this.props.user.username}

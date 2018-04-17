@@ -1,18 +1,19 @@
-import React, { Component } from "react";
-import { reduxForm } from "redux-form";
-import { TextField } from "material-ui";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import React, { Component } from 'react';
+import { reduxForm } from 'redux-form';
+import { TextField } from 'material-ui';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import Autosuggest from "react-autosuggest";
-import match from "autosuggest-highlight/match";
-import parse from "autosuggest-highlight/parse";
-import Paper from "material-ui/Paper";
-import { MenuItem } from "material-ui/Menu";
-import { withStyles } from "material-ui/styles";
+import Autosuggest from 'react-autosuggest';
+import match from 'autosuggest-highlight/match';
+import parse from 'autosuggest-highlight/parse';
+import Paper from 'material-ui/Paper';
+import { MenuItem } from 'material-ui/Menu';
+import { withStyles } from 'material-ui/styles';
 
-import { getNames, getOreos } from "../actions";
+import { getNames, getOreos } from '../actions';
 
+// create material inputfield for searchbar
 const renderTextField = inputProps => {
   const { classes, labelText, ref, ...other } = inputProps;
 
@@ -27,10 +28,12 @@ const renderTextField = inputProps => {
         ...other
       }}
       placeholder={labelText}
+      margin="normal"
     />
   );
 };
 
+// create suggestions
 function renderSuggestion(suggestion, { query, isHighlighted }) {
   const matches = match(suggestion, query);
   const parts = parse(suggestion, matches);
@@ -71,30 +74,30 @@ function getSuggestionValue(suggestion) {
 const styles = theme => ({
   container: {
     flexGrow: 1,
-    position: "relative",
+    position: 'relative',
     height: 250
   },
   suggestionsContainerOpen: {
-    position: "absolute",
+    position: 'absolute',
     zIndex: 1,
     marginTop: theme.spacing.unit,
     left: 0,
     right: 0
   },
   suggestion: {
-    display: "block"
+    display: 'block'
   },
   suggestionsList: {
     margin: 0,
     padding: 0,
-    listStyleType: "none"
+    listStyleType: 'none'
   }
 });
 
 class SearchBar extends Component {
   state = {
-    value: "",
-    id: "",
+    value: '',
+    id: '',
     suggestions: []
   };
 
@@ -136,6 +139,7 @@ class SearchBar extends Component {
     });
   };
 
+  // when click suggestions, go to oreopage
   onSuggestionSelected = (event, ...other) => {
     this.props.history.push(`/oreo/${other[0].suggestion._id}`);
   };
@@ -165,7 +169,7 @@ class SearchBar extends Component {
           onSuggestionSelected={this.onSuggestionSelected}
           inputProps={{
             classes,
-            placeholder: "Search for an Oreo",
+            placeholder: 'Search for an Oreo',
             value: this.state.value,
             onChange: this.handleChange
           }}
@@ -200,4 +204,4 @@ SearchBar = withStyles(styles)(SearchBar);
 
 SearchBar = connect(mapStateToProps, mapDispatchToProps)(SearchBar);
 
-export default reduxForm({ form: "Searchbar" })(SearchBar);
+export default reduxForm({ form: 'Searchbar' })(SearchBar);

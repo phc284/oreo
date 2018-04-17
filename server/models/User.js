@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
     required: 'Please supply a name',
     trim: true
   },
+  admin: Boolean,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   favorites: [{ type: mongoose.Schema.ObjectId, ref: 'Cookie' }]
