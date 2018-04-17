@@ -18,6 +18,7 @@ exports.login = (req, res) => {
       if (sendUser === null) {
         res.send({ error: true });
       } else {
+        // res.cookie('user', sendUser, { maxAge: 604800 });
         res.send(sendUser);
       }
     }

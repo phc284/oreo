@@ -44,7 +44,7 @@ class Login extends Component {
           this.setState({
             error: false
           });
-        }, 2000);
+        }, 5000);
       } else {
         this.setState({
           error: false

@@ -29,7 +29,7 @@ router.post(
   '/signup',
   userController.validateSignup,
   userController.register,
-  catchErrors(authController.login)
+  authController.login
 );
 router.post('/login', authController.login);
 router.get('/logout', authController.logout);
