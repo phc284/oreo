@@ -45,7 +45,6 @@ class OreoList extends Component {
   };
 
   render() {
-    console.log(this.props);
     const { oreos } = this.props.oreos;
     return (
       <div className="oreo-list">
@@ -89,7 +88,6 @@ const mapStateToProps = ({
   flashMessages,
   ...other
 }) => {
-  console.log('user', other);
   return {
     oreos,
     hydrate,

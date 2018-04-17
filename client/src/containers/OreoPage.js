@@ -56,7 +56,6 @@ class OreoPage extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('OREOPAGE STATE', state);
   return state;
 };
 

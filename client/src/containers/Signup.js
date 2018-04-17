@@ -5,7 +5,6 @@ import Dialog, {
   DialogContent
 } from 'material-ui/Dialog';
 import { Field, reduxForm } from 'redux-form';
-import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import axios from 'axios';
 import { connect } from 'react-redux';
@@ -19,9 +18,11 @@ import AddFormInput from '../components/AddFormInput';
 const validate = values => {
   const errors = {};
   const requiredFields = ['username', 'email', 'password', 'confirm-password'];
+  /*eslint-disable */
   const regex = new RegExp(
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   );
+  /*eslint-enable */
 
   requiredFields.forEach(field => {
     if (!values[field]) {
@@ -40,19 +41,16 @@ const validate = values => {
 
 class Signup extends Component {
   handleSubmit = formValues => {
-    console.log('LOGIN FORM VALUES', formValues);
-
     axios
       .post('/api/signup', formValues)
       .then(data => {
         const user = data.data;
         this.props.login(user);
         this.props.handleClose('signup');
-        this.props.reset;
+        this.props.reset();
+        this.props.reset();
       })
-      .catch(err => {
-        console.log('err', err);
-      });
+      .catch(err => {});
   };
 
   render() {

@@ -1,6 +1,5 @@
 import React from 'react';
 const handleChange = handler => ({ target: { files } }) => {
-  console.log(files);
   handler(files.length ? { file: files[0], name: files[0].name } : {});
 };
 

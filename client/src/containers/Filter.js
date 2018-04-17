@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Card from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { FormControl, FormControlLabel } from 'material-ui/Form';

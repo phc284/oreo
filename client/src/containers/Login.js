@@ -4,7 +4,6 @@ import Dialog, {
   DialogActions,
   DialogContent
 } from 'material-ui/Dialog';
-import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import { Field, reduxForm } from 'redux-form';
 import axios from 'axios';
@@ -32,9 +31,7 @@ class Login extends Component {
     error: false
   };
   handleSubmit = formValues => {
-    console.log('LOGIN FORM VALUES', formValues);
     axios.post('/api/login', formValues).then(data => {
-      console.log('data', data);
       if (data.data.error) {
         this.setState({
           error: true
